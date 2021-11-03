@@ -1,0 +1,239 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masgarti INC,. - User Details</title>
+    <link rel="stylesheet" href="{% static 'Flyers.css' %}">
+    <link rel="stylesheet" href="{% static 'main_styles.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#btt-image").on('click', function(event) {
+                if (this.hash !== "") {
+                    event.preventDefault();
+                    var hash = this.hash;
+                    $('html, body').animate({
+                        scrollTop: $(hash).offset().top
+                    }, 800, function(){
+                        window.location.hash = hash;
+                    });
+                } 
+            });
+        });
+    </script>
+    <style>
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 2px transparent; 
+            border-radius: 4px;
+        }
+        
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background-color: lightgray;
+            border-radius: 6px;
+        }
+
+        .user-account {
+            position: relative;
+            display: flex;
+            justify-content: space-evenly;
+            cursor: pointer;
+            margin: 6px 0;
+        }
+
+        .account-menu {
+            visibility: hidden;
+            opacity: 0;
+            background-color: white;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            transform: translateY(-3em);
+            z-index: -1;
+            transition: all 0.3s ease 0s, visibility 0s linear 0.03s, z-index 0s linear 0.01s;
+        }
+
+        .user-account:focus .account-menu,
+        .user-account:focus-within .account-menu,
+        .user-account:hover .account-menu {
+            visibility: visible;
+            z-index: 1;
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0s, 0s, 0.3s;
+        }
+
+        .account-menu li {
+            width: 100%;
+        }
+
+        .account-menu li:hover {
+            background-color: #5C6BC0;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <section id="top-page" class="overflow-x-hidden bg-gray-200">
+        <section class="content-center w-screen h-full items-center">
+            <section class="fixed z-30 w-screen bg-gradient-to-r from-indigo-500 via-indigo-600 to-indigo-800 container-lg h-20 flex items-center justify-between p-5">
+                <div class="flex justify-evenly align-middle items-center">
+                    <a class="outline-none cursor-pointer" href="{% url 'homepage' %}"><img class="w-24 md:w-64 h-14 md:h-24" src="{% static 'images/Logos/Masgarti-logos_transparent.png' %}" /></a>
+                    <div class="font-sans items-center hidden lg:block md:ml-10 space-x-2 p-2">
+                        <a class="outline-none cursor-pointer" href="{% url 'clothing' %}"><span class="text-xl text-gray-200 hover: rounded-2xl hover: px-5 hover: py-1 hover:text-black hover:bg-white hover:border-black">Clothing</span></a>
+                        <a class="outline-none cursor-pointer" href="{% url 'electronics' %}"><span class="text-xl text-gray-200 hover: rounded-2xl hover: px-5 hover: py-1 hover:text-black hover:bg-white hover:border-black">Electronics</span></a>
+                        <a class="outline-none cursor-pointer" href="{% url 'business_promotions' %}"><span class="text-xl text-gray-200 hover: rounded-2xl hover: px-5 hover: py-1 hover:text-black hover:bg-white hover:border-black">Business Promotions</span></a>
+                    </div>
+                </div>
+                <div class="font-sans flex items-center cursor-pointer space-x-6">
+                    {% if request.session.username %}
+                        <ul class="user-account">
+                            <li><span class="text-md md:text-xl text-white font-semibold">Welcome {{ request.session.username }}</span></li>
+                            <li>
+                                <img class="w-6 h-6 md:w-8 md:h-8 ml-1" src="{% static 'images/arrow_drop_down_white_48dp.svg' %}">
+                                <ul class="account-menu">
+                                    <li class="py-3 bg-indigo-600 text-white">My Account</li>
+                                    <li class="py-3"><a href="#">My Orders</a></li>
+                                    <form action="{% url 'logoutview' %}" method="post">
+                                        <li class="py-3 cursor-pointer">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="redirect_url" value="{{ request.GET.account_url }}" />
+                                            <input class="w-full h-full outline-none cursor-pointer bg-transparent" type="submit" name="signout" value="Sign Out" />
+                                        </li>
+                                    </form>
+                                </ul>
+                            </li>
+                        </ul>
+                        {% else %}
+                        <div class="flex items-center space-x-2 md:space-x-7 justify-evenly">
+                            <a class="cursor-pointer" href="{% url 'loginview' %}?next={{ request.get_full_path }}"><span class="text-sm md:text-xl text-gray-200 hover: rounded-2xl hover: px-5 hover: py-1 hover:text-black hover:bg-white hover:border-black">Login</span></a>
+                            <a class="cursor-pointer" href="{% url 'signupview' %}"><span class="text-sm md:text-xl text-gray-200 hover: rounded-2xl hover: px-5 hover: py-1 hover:text-black hover:bg-white hover:border-black">Sign Up</span></a>
+                        </div>
+                    {% endif %}
+                    <img class="bg-transparent h-8 w-8 md:h-12 md:w-12" src="{% static 'images/shopping_cart_white_48dp.svg' %}" />
+                </div>
+            </section>
+        </section>
+        <section class="w-screen h-full justify-center items-center content-center">
+            <div class="flex flex-col align-middle justify-center items-center mt-24 md:mt-28 rounded-xl w-auto md:mx-16 bg-white shadow-xl">
+                <div class="flex my-8 md:mx-14">
+                    <a href="{% url 'homepage' %}" class="text-black text-sm md:text-lg lg:text-xl font-semibold outline-none hover:text-indigo-700">Home</a>
+                    <img class="w-8 h-4 md:w-10 md:mt-1 md:h-6" src="{% static 'images/east_black_48dp.svg' %} /">
+                    <span class="text-sm md:text-lg mx-2 font-semibold text-indigo-800">Account</span>
+                    <img class="w-8 h-4 md:w-10 md:mt-1 md:h-6" src="{% static 'images/east_black_48dp.svg' %} /">
+                    {% if request.session.username %}
+                        <span class="text-sm md:text-lg mx-2 font-semibold text-indigo-800">{{ request.session.username }} Settings</span>
+                    {% endif %}
+                </div>
+                <div class="flex items-center w-full justify-center content-center flex-col mb-14 mx-8">
+                    <span class="text-2xl md:text-3xl lg:text-5xl font-light text-indigo-700 mr-10">Account Details</span>
+                    <svg class="my-5 mr-10 hidden xl:block" height="5" width="1000">
+                        <line x1="0" y1="0" x2="960" y2="0" style="stroke:rgb(40, 53, 147);stroke-width:5" />
+                    </svg>
+                    <svg class="my-5 mr-10 xl:hidden" height="5" width="350">
+                        <line x1="40" y1="0" x2="370" y2="0" style="stroke:rgb(40, 53, 147);stroke-width:5" />
+                    </svg>
+                    <div class="flex justify-between">
+                        <div class="flex flex-col items-start justify-start mr-4 md:mr-16 lg:mr-32">
+                            <span class="text-lg md:text-xl font-semibold mb-5">First Name</span>
+                            <span class="text-lg md:text-xl font-semibold my-5">Last Name</span>
+                            <span class="text-lg md:text-xl font-semibold my-5">E - Mail</span>
+                            <span class="text-lg md:text-xl font-semibold my-5">Mobile Number</span>
+                        </div>
+                        <div class="flex flex-col items-start justify-start">
+                            <span class="text-lg md:text-xl font-semibold mb-5">{{ firstname }}</span>
+                            <span class="text-lg md:text-xl font-semibold my-5">{{ lastname }}</span>
+                            <span class="text-sm my-6 md:text-xl font-semibold md:my-5">{{ email }}</span>
+                            <span class="text-lg my-6 md:text-xl font-semibold md:my-5">{{ mobilenumber }}</span>
+                        </div>
+                    </div>
+                    <div class="flex items-end justify-end">
+                        <a href="{% url 'edit-user-details' %}?account_url={{ request.path }}" class="py-3 mx-10 px-6 bg-indigo-700 text-white text-center text-xl rounded-lg">Edit Profile</a>
+                    </div>
+                    <svg class="my-5 mr-10 hidden xl:block" height="5" width="1000">
+                        <line x1="0" y1="0" x2="960" y2="0" style="stroke:rgb(40, 53, 147);stroke-width:5" />
+                    </svg>
+                    <svg class="my-5 mr-10 xl:hidden" height="5" width="350">
+                        <line x1="40" y1="0" x2="370" y2="0" style="stroke:rgb(40, 53, 147);stroke-width:5" />
+                    </svg>
+                    <span class="text-2xl md:text-3xl lg:text-5xl font-light text-indigo-700 mt-5 mr-10">Security Credentials</span>
+                    <svg class="my-5 mr-10 hidden xl:block" height="5" width="1000">
+                        <line x1="0" y1="0" x2="960" y2="0" style="stroke:rgb(40, 53, 147);stroke-width:5" />
+                    </svg>
+                    <svg class="my-5 mr-10 xl:hidden" height="5" width="350">
+                        <line x1="40" y1="0" x2="370" y2="0" style="stroke:rgb(40, 53, 147);stroke-width:5" />
+                    </svg>
+                    <div class="flex align-middle items-center  justify-between">
+                        <span class="text-xl font-semibold md:-ml-16 md:mr-48">Password</span>
+                        <a class="py-3 bg-indigo-700 text-white ml-6 rounded-lg text-xl px-5" href="{% url 'edit-user-password' %}?account_url={{ request.path }}">Change Password</a> 
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="container-lg flex flex-col z-20 h-full place-items-end">
+            <div class=" h-15 flex content-end items-end">
+                <span id="back-to-top" class="hidden font-semibold text-lg mb-3 mr-4">Back to Top</span>
+                <a id="btt-image" href="#top-page"><img class="border border-solid border-black rounded-full cursor-pointer w-8 h-8 lg:w-14 lg:h-14 mt-8 mr-4 lg:mt-12 lg:mr-16" src="{% static 'images/arrow_upward_black_48dp.svg' %}" /></a>
+            </div>
+            <section class="bg-gradient-to-r from-indigo-500 via-indigo-600 to-indigo-800 w-screen flex flex-col h-full mt-10">
+                <div class="flex flex-col md:flex-row justify-evenly items-start my-6 mx-2 lg:my-12 xl:mx-24">
+                    <div class="flex flex-col">
+                        <span class="font-semibold text-white text-xl lg:text-2xl mb-2 lg:mb-4">Shop By Departments</span>
+                        <a class="mt-2" href="{% url 'clothing' %}"><span class="font-medium text-gray-200 text-lg lg:text-xl pl-4 lg:pl-8 cursor-pointer">Clothing</span></a>
+                        <a class="mt-2" href="{% url 'electronics' %}"><span class="font-medium text-gray-200 text-lg lg:text-xl pl-4 lg:pl-8 mt-2 cursor-pointer">Electronics</span></a>
+                        <a class="mt-2" href="{% url 'business_promotions' %}"><span class="font-medium text-gray-200 text-lg lg:text-xl pl-4 lg:pl-8 mt-2 cursor-pointer">Business Promotions</span></a>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-semibold text-white text-xl lg:text-2xl mb-2 lg:mb-4">Customer Zone</span>
+                        <span class="font-medium text-gray-200 text-lg lg:text-xl pl-4 lg:pl-8 mt-2 cursor-pointer">Your Accont</span>
+                        <span class="font-medium text-gray-200 text-lg lg:text-xl pl-4 lg:pl-8 mt-2 cursor-pointer">Delivery Charges</span>
+                        <span class="font-medium text-gray-200 text-lg lg:text-xl pl-4 lg:pl-8 mt-2 cursor-pointer">Refunds & Replacements</span>
+                        <span class="font-medium text-gray-200 text-lg lg:text-xl pl-4 lg:pl-8 mt-2 cursor-pointer">Order Tracking</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-semibold text-white text-xl lg:text-2xl mb-2">Connect With Us</span>
+                        <div class="flex">
+                            <img class="pl-8" src="{% static 'images/icons8-facebook-circled.svg' %}" />
+                            <img class="pl-8" src="{% static 'images/icons8-instagram-logo.svg' %}" />
+                            <img class="pl-8" src="{% static 'images/icons8-twitter.svg' %}" />
+                        </div>
+                        <span class="font-semibold text-white text-xl lg:text-2xl mt-8 mb-2">Download Our App</span>
+                        <div class="flex flex-col lg:flex-row">
+                            <div class="h-30 w-48 ml-5">
+                                <img class="rounded-xl" src="{% static 'images/google-play-badge.png' %}" />
+                            </div>
+                            <div class="h-30 w-48 mt-5 lg:mt-0 ml-5">
+                                <img class="rounded-xl" src="{% static 'images/App_Store_Badge.jpg' %}" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center mb-5 justify-center">
+                    <img class="h-5 w-5 lg:h-7 lg:w-7 mr-2" src="{% static 'images/copyright_white_48dp.svg' %}" />
+                    <span class="text-md lg:text-lg font-semibold text-white">All Rights Reserved - Masgarti INC,.</span>
+                </div>
+            </section>
+        </section>
+    </section>
+    <script>
+        const btt = document.getElementById("back-to-top");
+        const btt_image = document.getElementById("btt-image");
+        btt_image.addEventListener('mouseover', function() {
+            btt.classList.remove('hidden');
+        })
+        btt_image.addEventListener('mouseout', function() {
+            btt.classList.add('hidden');
+        })
+    </script>
+</body>
+</html>

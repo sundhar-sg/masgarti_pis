@@ -1,0 +1,366 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masgarti INC,. - Tablets Configuration</title>
+    <link rel="stylesheet" href="{% static 'main_styles.css' %}">
+    <link rel="stylesheet" href="{% static 'Flyers.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#btt-image").on('click', function(event) {
+                if (this.hash !== "") {
+                    event.preventDefault();
+                    var hash = this.hash;
+                    $('html, body').animate({
+                        scrollTop: $(hash).offset().top
+                    }, 800, function(){
+                        window.location.hash = hash;
+                    });
+                } 
+            });
+        });
+    </script>
+    <style>
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 2px transparent; 
+            border-radius: 4px;
+        }
+        
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background-color: lightgray;
+            border-radius: 6px;
+        }
+
+        .user-account {
+            position: relative;
+            display: flex;
+            justify-content: space-evenly;
+            cursor: pointer;
+            margin: 6px 0;
+        }
+
+        .account-menu {
+            visibility: hidden;
+            opacity: 0;
+            background-color: white;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            transform: translateY(-3em);
+            z-index: -1;
+            transition: all 0.3s ease 0s, visibility 0s linear 0.03s, z-index 0s linear 0.01s;
+        }
+
+        .user-account:focus .account-menu,
+        .user-account:focus-within .account-menu,
+        .user-account:hover .account-menu {
+            visibility: visible;
+            z-index: 1;
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0s, 0s, 0.3s;
+        }
+
+        .account-menu li {
+            width: 100%;
+        }
+
+        .account-menu li:hover {
+            background-color: #5C6BC0;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <section id="top-page" class="overflow-x-hidden bg-gray-200">
+        <section class="content-center w-screen h-full items-center ">
+            <section class="fixed z-30 w-screen bg-gradient-to-r from-indigo-500 via-indigo-600 to-indigo-800 container-lg h-14 lg:h-20 flex items-center justify-between p-5">
+                <div class="flex justify-evenly align-middle items-center">
+                    <a class="outline-none cursor-pointer" href="{% url 'homepage' %}"><img class="w-24 md:w-64 h-14 md:h-24" src="{% static 'images/Logos/Masgarti-logos_transparent.png' %}" /></a>
+                    <div class="font-sans items-center hidden lg:block md:ml-10 space-x-2 p-2">
+                        <a class="outline-none cursor-pointer" href="{% url 'clothing' %}"><span class="text-xl text-gray-200 hover: rounded-2xl hover: px-5 hover: py-1 hover:text-black hover:bg-white hover:border-black">Clothing</span></a>
+                        <span class="text-xl rounded-2xl px-5 py-1 text-black bg-white border-black">Electronics</span>
+                        <a class="outline-none cursor-pointer" href="{% url 'business_promotions' %}"><span class="text-xl text-gray-200 hover: rounded-2xl hover: px-5 hover: py-1 hover:text-black hover:bg-white hover:border-black">Business Promotions</span></a>
+                    </div>
+                </div>
+                <div class="font-sans flex items-center cursor-pointer space-x-6">
+                    {% if request.session.username %}
+                        <ul class="user-account">
+                            <li><span class="text-md md:text-xl text-white md:font-semibold">Welcome {{ request.session.username }}</span></li>
+                            <li>
+                                <img class="w-6 h-6 md:w-8 md:h-8 ml-1" src="{% static 'images/arrow_drop_down_white_48dp.svg' %}">
+                                <ul class="account-menu">
+                                    <li class="py-3"><a href="{% url 'user-details-view' %}?account_url={{ request.get_full_path }}">My Account</a></li>
+                                    <li class="py-3"><a href="#">My Orders</a></li>
+                                    <form action="" method="post">
+                                        <li class="py-3 cursor-pointer">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="redirect_url" value="{{ request.get_full_path }}" />
+                                            <input class="w-full h-full outline-none cursor-pointer bg-transparent" type="submit" name="signout" value="Sign Out" />
+                                        </li>
+                                    </form>
+                                </ul>
+                            </li>
+                        </ul>
+                        {% else %}
+                        <div class="flex items-center space-x-2 md:space-x-7 justify-evenly">
+                            <a class="cursor-pointer" href="{% url 'loginview' %}?next={{ request.get_full_path }}"><span class="text-sm md:text-xl text-gray-200 hover: rounded-2xl hover: px-5 hover: py-1 hover:text-black hover:bg-white hover:border-black">Login</span></a>
+                            <a class="cursor-pointer" href="{% url 'signupview' %}"><span class="text-sm md:text-xl text-gray-200 hover: rounded-2xl hover: px-5 hover: py-1 hover:text-black hover:bg-white hover:border-black">Sign Up</span></a>
+                        </div>
+                    {% endif %}
+                    <img class="bg-transparent h-8 w-8 md:h-12 md:w-12" src="{% static 'images/shopping_cart_white_48dp.svg' %}" />
+                </div>
+            </section>
+            <section class="w-screen h-full flex flex-col">
+                <div class="flex flex-col mt-20 lg:mt-24 justify-start">
+                    <span class="flex justify-start items-center ml-3 lg:ml-14">
+                        <a href="{% url 'homepage' %}" class="text-black text-xs md:text-lg lg:text-xl font-semibold outline-none hover:text-indigo-700">Home</a>
+                        <img class="w-8 h-4 lg:w-10 lg:h-6 -mb-1" src="{% static 'images/east_black_48dp.svg' %}" />
+                        <a href="{% url 'electronics' %}" class="text-black text-xs md:text-lg lg:text-xl font-semibold outline-none hover:text-indigo-700">Custom Electronics</a>
+                        <img class="w-8 h-4 lg:w-10 lg:h-6 -mb-1" src="{% static 'images/east_black_48dp.svg' %}" />
+                        <span class="text-indigo-700 text-xs md:text-lg lg:text-xl font-semibold">Tablets</span>
+                    </span>
+                </div>
+                <div class="mt-6 w-screen text-white pt-5 bg-gradient-to-r from-indigo-500 via-indigo-600 to-indigo-800 h-full flex flex-col items-center justify-center">
+                    <span class="text-xl md:text-3xl font-semibold text-center">Tablets Store</span>
+                    <div class="flex flex-col my-6 items-center justify-center align-middle">
+                        <span class="text-lg text-center md:text-xl font-normal">Masgarti provides Customizable tablets with Sleek and Elegant design</span>
+                        <span class="text-lg text-center md:text-xl mt-4 font-semibold">For Individual persons and Corporate Professionals.</span>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row md:pl-10 pb-5 text-gray-300 pt-5 bg-gradient-to-r from-indigo-500 via-indigo-600 to-indigo-800 items-center justify-start">
+                    <span class="text-lg md:text-xl underline font-semibold">Offers :</span>
+                    <span class="text-lg md:text-xl ml-4 font-semibold">Special Offers for Bulk ordering of Tablets(Corporate Professionals only)</span>
+                </div>
+                <div id="main-flex" class="flex flex-col-reverse xl:flex-row mx-3 xl:ml-4 xl:mr-8 my-5 items-start justify-between">
+                    <div class="flex w-full xl:w-1/2 flex-col items-center justify-center">
+                        <div class="flex w-full block h-auto flex-col items-center justify-center mt-5 items-start bg-white shadow-2xl py-6 px-3 md:p-6 rounded-2xl">
+                            <span class="text-xl lg:text-2xl text-center font-semibold text-indigo-800">Customize our Tablets for your needs.</span>
+                            <span class="text-lg lg:text-xl text-center font-semibold">1 Year Warranty on Tablets and its accessories</span>
+                            <form action="#" class="w-full my-5" method="POST">
+                                <div id="tablet-colour-div">
+                                    <fieldset id="tablet-colour" class="flex flex-col">
+                                        <legend class="text-xl my-5 font-semibold">Colour</legend>
+                                        <div class="flex flex-col mb-10 items-center justify-evenly">
+                                            <div class="vertical w-full" id="tablet-colour">
+                                                <input name="tablet-colour" type="radio" id="natural-black" checked="checked" aria-labelledby="natural-black-label" value="Natural Black" required>
+                                                <label class="flex" for="natural-black" id="natural-black-label">
+                                                    <span class="flex text-lg font-semibold">Black</span>
+                                                    <span class="text-md font-semibold">Free</span>
+                                                </label>
+                                            </div>
+                                            <div class="vertical pt-4 w-full" id="tablet-colour">
+                                                <input name="tablet-colour" type="radio" id="silver" aria-labelledby="silver-label" value="Silver">
+                                                <label class="flex" for="silver" id="silver-label">
+                                                    <span class="flex text-lg font-semibold">Silver</span>
+                                                    <span class="text-lg font-semibold">Free</span>
+                                                </label>
+                                            </div>
+                                            <div class="vertical pt-4 w-full" id="tablet-colour">
+                                                <input name="tablet-colour" type="radio" id="space-grey" aria-labelledby="space-grey-label" value="Space Grey">
+                                                <label class="flex" for="space-grey" id="space-grey-label">
+                                                    <span class="text-lg flex font-semibold">Rose</span>
+                                                    <span class="text-lg font-semibold">Free</span>
+                                                </label>
+                                            </div>
+                                            <div class="vertical pt-4 w-full" id="tablet-colour">
+                                                <input name="tablet-colour" type="radio" id="fog-blue" aria-labelledby="fog-blue-label" value="Fog Blue">
+                                                <label class="flex" for="fog-blue" id="fog-blue-label">
+                                                    <span class="text-lg flex font-semibold">Blue</span>
+                                                    <span class="text-lg font-semibold">Free</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <svg class="hidden md:block -ml-5" height="5" width="650">
+                                    <line x1="0" y1="0" x2="650" y2="0" style="stroke:rgb(0, 0, 0);stroke-width:2" />
+                                </svg>
+                                <svg class="block md:hidden" height="5" width="280">
+                                    <line x1="0" y1="0" x2="270" y2="0" style="stroke:rgb(0, 0, 0);stroke-width:2" />
+                                </svg>
+                                <div id="screen-size-div">
+                                    <fieldset id="screen-size" class="flex flex-col my-6">
+                                        <legend class="text-xl my-5 font-semibold">Screen Size</legend>
+                                        <div class="flex flex-col mb-5 items-center">
+                                            <div class="vertical w-full" id="screen-size">
+                                                <input name="screen-size" type="radio" id="11inch-display" checked="checked" aria-labelledby="11inch-display-label" value="11Inch" required>
+                                                <label class="flex" for="11inch-display" id="11inch-display-label">
+                                                    <span class="text-lg font-semibold">11 Inch LCD Display(2560x1600)</span>
+                                                    <span class="text-md font-semibold">Included in Price</span>
+                                                </label>
+                                            </div>
+                                            <div class="vertical pt-4 w-full" id="screen-size">
+                                                <input name="screen-size" type="radio" id="12.4inch-display" aria-labelledby="12.4inch-display-label" value="12.4Inch">
+                                                <label class="flex" for="12.4inch-display" id="12.4inch-display-label">
+                                                    <span class="text-lg font-semibold">12.4 Inch sAMOLED Display(2800x1752)</span>
+                                                    <span class="text-lg font-semibold">+ &#x20B9 5999</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <svg class="hidden md:block -ml-5" height="5" width="650">
+                                    <line x1="0" y1="0" x2="650" y2="0" style="stroke:rgb(0, 0, 0);stroke-width:2" />
+                                </svg>
+                                <svg class="block md:hidden" height="5" width="280">
+                                    <line x1="0" y1="0" x2="270" y2="0" style="stroke:rgb(0, 0, 0);stroke-width:2" />
+                                </svg>
+                                <div id="ram-capacity-div">
+                                    <fieldset id="ram-capacity" class="flex flex-col">
+                                        <legend class="text-xl my-5 font-semibold">RAM</legend>
+                                        <div class="flex flex-col mb-10 items-center justify-evenly">
+                                            <div class="vertical w-full" id="ram-capacity">
+                                                <input name="ram-capacity" type="radio" id="8-gb-ram" checked="checked" aria-labelledby="8-gb-ram-label" value="8GB">
+                                                <label class="flex" for="8-gb-ram" id="8-gb-ram-label">
+                                                    <span class="text-lg font-semibold">8GB RAM</span>
+                                                    <span class="text-lg font-semibold">Included in Price</span>
+                                                </label>
+                                            </div>
+                                            <div class="vertical pt-4 w-full" id="ram-capacity">
+                                                <input name="ram-capacity" type="radio" id="12-gb-ram" aria-labelledby="12-gb-ram-label" value="12GB">
+                                                <label class="flex" for="12-gb-ram" id="12-gb-ram-label">
+                                                    <span class="text-lg font-semibold">12GB RAM</span>
+                                                    <span class="text-lg font-semibold">+ &#x20B9 3499</span>
+                                                </label>
+                                            </div>
+                                            <div class="vertical pt-4 w-full" id="ram-capacity">
+                                                <input name="ram-capacity" type="radio" id="16gb-ram" aria-labelledby="16gb-ram-label" value="16GB">
+                                                <label class="flex" for="16gb-ram" id="16gb-ram-label">
+                                                    <span class="text-lg font-semibold">16GB RAM</span>
+                                                    <span class="text-lg font-semibold">+ &#x20B9 5999</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <svg class="hidden md:block -ml-5" height="5" width="650">
+                                    <line x1="0" y1="0" x2="650" y2="0" style="stroke:rgb(0, 0, 0);stroke-width:2" />
+                                </svg>
+                                <svg class="block md:hidden" height="5" width="280">
+                                    <line x1="0" y1="0" x2="270" y2="0" style="stroke:rgb(0, 0, 0);stroke-width:2" />
+                                </svg>
+                                <div id="storage-capacity-div">
+                                    <fieldset id="storage-capacity" class="flex flex-col">
+                                        <legend class="text-xl mt-5 font-semibold">Storage</legend>
+                                        <div class="flex flex-col mb-10 items-center justify-evenly">
+                                            <div class="vertical pt-4 w-full" id="storage-capacity">
+                                                <input name="storage-capacity" type="radio" id="128-gb" checked="checked" aria-labelledby="128-gb-label" value="128GB" required>
+                                                <label class="flex" for="128-gb" id="128-gb-label">
+                                                    <span class="text-lg font-semibold">128GB ROM</span>
+                                                    <span class="text-md font-semibold">Included in Price</span>
+                                                </label>
+                                            </div>
+                                            <div class="vertical pt-4 w-full" id="storage-capacity">
+                                                <input name="storage-capacity" type="radio" id="256-gb" aria-labelledby="256-gb-label" value="256GB">
+                                                <label class="flex" for="256-gb" id="256-gb-label">
+                                                    <span class="text-lg font-semibold">256GB ROM</span>
+                                                    <span class="text-lg font-semibold">+ &#x20B9 6999</span>
+                                                </label>
+                                            </div>
+                                            <div class="vertical pt-4 w-full" id="storage-capacity">
+                                                <input name="storage-capacity" type="radio" id="512-gb" aria-labelledby="512-gb-label" value="512GB">
+                                                <label class="flex" for="512-gb" id="512-gb-label">
+                                                    <span class="text-lg font-semibold">512GB ROM</span>
+                                                    <span class="text-lg font-semibold">+ &#x20B9 12499</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div id="total-price" class="flex mb-4 justify-center items-center">
+                                    <span class="text-2xl font-semibold">Total Price :</span>
+                                    <span id="price-calculator" class="text-2xl ml-2 font-semibold">&#x20B9 34999</span>
+                                </div>
+                                <button type="submit" class=" h-16 w-full rounded-2xl items-center justify-center bg-indigo-500 hover:bg-indigo-800" value="Add to Cart">
+                                    <span class="text-2xl font-semibold text-white">Start Designing >></span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div id="right-flex" class="h-full flex-col w-full xl:w-1/2 mt-5 xl:ml-12 items-center justify-center">
+                        <img class="static rounded-2xl shadow-2xl" src="{% static 'images/Images/Custom_Tablets_4.jpg' %}" />
+                        <div class="flex flex-col items-start bg-white space-y-3 shadow-2xl mt-8 py-6 px-3 xl:p-6 rounded-2xl">
+                            <span class="text-xl md:text-3xl text-center text-indigo-800 font-semibold">Standard Customizable Tablets</span>
+                            <span class="text-lg md:text-xl font-semibold mt-3">Specifications :</span>
+                            <span class="text-sm md:text-lg flex items-center justify-center align-middle"><img class="w-8 h-8 mr-3" src="{% static 'images/tablet_black_48dp.svg' %}">11inch (or) 12.4inch Display Options</span>
+                            <span class="text-sm md:text-lg flex items-center justify-center align-middle"><img class="w-8 h-8 mr-3" src="{% static 'images/icons8-processor-64.png' %}">Pre-Configured with Snapdragon 865+ 5G Processor for Fast performance and Efficient Multi-tasking</span>
+                            <span class="text-sm md:text-lg flex items-center justify-center align-middle"><img class="w-8 h-8 mr-3" src="{% static 'images/memory_black_48dp.svg' %}">8GB, 12GB, 16GB RAM Options Available</span>
+                            <span class="text-sm md:text-lg flex items-center justify-center align-middle"><img class="w-8 h-8 mr-3" src="{% static 'images/storage_black_48dp.svg' %}">128GB, 256GB, 512GB Storage Options Available</span>
+                            <span class="text-sm md:text-lg flex items-center justify-center align-middle"><img class="w-8 h-8 mr-3" src="{% static 'images/battery_std_black_48dp.svg' %}">Long Lasting Battery for prolonged usage with Fast Charging Support</span>
+                            <span class="text-sm md:text-lg flex items-center justify-center align-middle"><img class="w-8 h-8 mr-3" src="{% static 'images/power_black_48dp.svg' %}">30W Super Fast Charger for Fast Charging the tablet.</span>
+                            <span class="text-sm md:text-lg flex items-center justify-center align-middle"><img class="w-8 h-8 mr-3" src="{% static 'images/android_black_48dp.svg' %}">Pre-Installed with Android 11</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="container-lg flex flex-col z-20 h-full place-items-end">
+                <div class=" h-15 flex content-end items-end">
+                    <span id="back-to-top" class="hidden font-semibold text-lg mb-3 mr-4">Back to Top</span>
+                    <a id="btt-image" href="#top-page"><img class="border border-solid border-black rounded-full cursor-pointer w-8 h-8 lg:w-14 lg:h-14 mr-3 mt-6 lg:mt-12 lg:mr-16" src="{% static 'images/arrow_upward_black_48dp.svg' %}" /></a>
+                </div>
+                <section class="bg-gradient-to-r from-indigo-500 via-indigo-600 to-indigo-800 py-6 w-screen flex flex-col h-full mt-10">
+                    <div class="flex flex-col md:flex-row justify-evenly items-start mx-4 lg:my-6 xl:mx-24">
+                        <div class="flex flex-col">
+                            <span class="font-semibold text-white text-xl md:text-2xl mb-2 md:mb-4">Shop By Departments</span>
+                            <a class="mt-2" href="{% url 'clothing' %}"><span class="font-medium text-white opacity-70 hover:opacity-100 text-lg md:text-xl pl-4 lg:pl-8 cursor-pointer">Clothing</span></a>
+                            <a class="mt-2" href="{% url 'electronics' %}"><span class="font-medium text-white opacity-70 hover:opacity-100 text-lg md:text-xl pl-4 lg:pl-8 mt-2 cursor-pointer">Electronics</span></a>
+                            <a class="mt-2" href="{% url 'business_promotions' %}"><span class="font-medium text-white opacity-70 hover:opacity-100 text-lg md:text-xl pl-4 lg:pl-8 mt-2 cursor-pointer">Business Promotions</span></a>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="font-semibold text-white text-xl md:text-2xl mb-2 md:mb-4">Customer Zone</span>
+                            <span class="font-medium text-white opacity-70 hover:opacity-100 text-lg md:text-xl pl-4 lg:pl-8 mt-2 cursor-pointer">Your Accont</span>
+                            <span class="font-medium text-white opacity-70 hover:opacity-100 text-lg md:text-xl pl-4 lg:pl-8 mt-2 cursor-pointer">Delivery Charges</span>
+                            <span class="font-medium text-white opacity-70 hover:opacity-100 text-lg md:text-xl pl-4 lg:pl-8 mt-2 cursor-pointer">Refunds & Replacements</span>
+                            <span class="font-medium text-white opacity-70 hover:opacity-100 text-lg md:text-xl pl-4 lg:pl-8 mt-2 cursor-pointer">Order Tracking</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="font-semibold text-white text-xl md:text-2xl mb-2 md:mb-2">Connect With Us</span>
+                            <div class="flex">
+                                <img class="pl-8" src="{% static 'images/icons8-facebook-circled.svg' %}" />
+                                <img class="pl-8" src="{% static 'images/icons8-instagram-logo.svg' %}" />
+                                <img class="pl-8" src="{% static 'images/icons8-twitter.svg' %}" />
+                            </div>
+                            <span class="font-semibold text-white text-xl md:text-2xl mb-2 md:mt-8 mb-2">Download Our App</span>
+                            <div class="flex flex-col lg:flex-row">
+                                <div class="h-30 w-48 ml-5">
+                                    <img class="rounded-xl" src="{% static 'images/google-play-badge.png' %}" />
+                                </div>
+                                <div class="h-30 w-48 mt-5 lg:mt-0 ml-5">
+                                    <img class="rounded-xl" src="{% static 'images/App_Store_Badge.jpg' %}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center mt-3 justify-center">
+                        <img class="h-5 w-5 md:h-7 md:w-7 mr-2" src="{% static 'images/copyright_white_48dp.svg' %}" />
+                        <span class="text-md md:text-lg font-semibold text-white">All Rights Reserved - Masgarti INC,.</span>
+                    </div>
+                </section>
+            </section>
+        </section>
+    </section>
+    <script>
+        const btt = document.getElementById("back-to-top");
+        const btt_image = document.getElementById("btt-image");
+        btt_image.addEventListener('mouseover', function() {
+            btt.classList.remove('hidden');
+        })
+        btt_image.addEventListener('mouseout', function() {
+            btt.classList.add('hidden');
+        })
+    </script>
+</body>
+</html>

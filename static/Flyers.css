@@ -1,0 +1,36 @@
+.vertical {
+    position: relative;
+}
+
+.vertical input {
+    position: absolute;
+    opacity: 0;
+    cursor: default;
+}
+
+.vertical input:checked + label {
+    --tw-bg-opacity: 1;
+    background-color: rgba(67, 56, 202, var(--tw-bg-opacity));
+    border-width: 1px;
+    border-color: black;
+    color: white;
+}
+
+.vertical label {
+    width: 100%;
+    height: auto;
+    padding: 10px 25px;
+    border-width: 1px;
+    border-color: black;
+    border-radius: 8px;
+    justify-content: space-between;
+    cursor: pointer;
+    font-size: larger;
+    font-weight: 500;
+}
+
+.user-options-div {
+    padding: 30px 50px 0;
+    display: flex;
+    flex-direction: column;
+}

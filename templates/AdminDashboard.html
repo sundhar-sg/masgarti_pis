@@ -1,0 +1,281 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Masgarti INC</title>
+    <link rel="stylesheet" href="{% static 'main_styles.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+        // Add smooth scrolling to all links
+        $("#btt-image").on('click', function(event) {
+
+            // Make sure this.hash has a value before overriding default behavior
+            if (this.hash !== "") {
+            // Prevent default anchor click behavior
+            event.preventDefault();
+
+            // Store hash
+            var hash = this.hash;
+
+            // Using jQuery's animate() method to add smooth page scroll
+            // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+            $('html, body').animate({
+                scrollTop: $(hash).offset().top
+            }, 800, function(){
+        
+                // Add hash (#) to URL when done scrolling (default click behavior)
+                window.location.hash = hash;
+            });
+            } // End if
+        });
+        });
+    </script>
+    <style>
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 2px transparent; 
+            border-radius: 4px;
+        }
+        
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background-color: rgba(170, 165, 165, 0.5);
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+    <section id="top-page" class="overflow-x-hidden bg-gray-200">
+        <section class="container-lg z-30 fixed w-screen bg-gradient-to-r from-indigo-500 via-indigo-600 to-indigo-800 flex items-center justify-between px-5 py-6 h-14 md:h-20">
+            <a class="outline-none cursor-pointer" href="{% url 'homepage' %}"><img class="w-24 md:w-64 h-14 md:h-24" src="{% static 'images/Logos/Masgarti-logos_transparent.png' %}" /></a>
+            <span class="text-xl font-semibold text-white">Top Destination for Customized Products</span>
+            <span class="text-lg font-semibold text-white">Account Details</span>
+        </section>
+        <section class="w-screen mt-28 overflow-hidden h-full flex">
+            <section class="w-1/4 box-border h-5/6 bg-indigo-200 overflow-x-hidden fixed z-20 shadow-xl mx-2 rounded-lg flex flex-col py-5 items-center">
+                <span style="font-family: 'Festive', cursive;" class="text-2xl font-semibold text-black">Masgarti INC,.</span>
+                <div class="flex flex-col ml-8 mt-5 items-start w-full">
+                    <span class="text-xl flex font-semibold text-indigo-800"><img class="w-7 h-7 rounded-xl mr-3" src="{% static 'images/icons8-analytics-64.png' %}" />Dashboard</span>
+                </div>
+                <svg class="mb-5 mt-24 absolute" height="2" width="400">
+                    <line x1="40" y1="0" x2="350" y2="0" style="stroke:rgb(115, 152, 255);stroke-width:5" />
+                </svg>
+                <div class="flex flex-col ml-8 mb-5 mt-10 items-start w-full">
+                    <span class="text-xl flex font-semibold"><img class="w-7 h-7 rounded-xl mr-3" src="{% static 'images/icons8-landing-page-64.png' %}" />Pages</span>
+                    <div class="mt-4 ml-10 flex flex-col align-middle items-start">
+                        <span class="text-lg font-semibold mb-3 hover:text-indigo-800 cursor-pointer">Home Page</span>
+                        <span class="text-lg font-semibold mb-3 hover:text-indigo-800 cursor-pointer">Clothing</span>
+                        <span class="text-lg font-semibold mb-3 hover:text-indigo-800 cursor-pointer">Electronics</span>
+                        <span class="text-lg font-semibold mb-3 hover:text-indigo-800 cursor-pointer">Business Promotions</span>
+                        <span class="text-lg font-semibold mb-3 hover:text-indigo-800 cursor-pointer">Men's Clothing</span>
+                        <span class="text-lg font-semibold mb-3 hover:text-indigo-800 cursor-pointer">Women's Clothing</span>
+                        <span class="text-lg font-semibold mb-3 hover:text-indigo-800 cursor-pointer">Office Wears</span>
+                        <span class="text-lg font-semibold mb-3 hover:text-indigo-800 cursor-pointer">Tablet Computers</span>
+                        <span class="text-lg font-semibold mb-3 hover:text-indigo-800 cursor-pointer">Laptop Computers</span>
+                        <span class="text-lg font-semibold mb-3 hover:text-indigo-800 cursor-pointer">Brochures</span>
+                        <span class="text-lg font-semibold mb-3 hover:text-indigo-800 cursor-pointer">Flyers</span>
+                        <span class="text-lg font-semibold mb-3 hover:text-indigo-800 cursor-pointer">Visiting Cards</span>
+                        <span class="text-lg font-semibold mb-3 hover:text-indigo-800 cursor-pointer">Postal Covers</span>
+                        <span class="text-lg font-semibold mb-3 hover:text-indigo-800 cursor-pointer">Letter Heads</span>
+                        <span class="text-lg font-semibold mb-3 hover:text-indigo-800 cursor-pointer">Login Page</span>
+                        <span class="text-lg font-semibold mb-3 hover:text-indigo-800 cursor-pointer">Signup Page</span>
+                        <span class="text-lg font-semibold mb-3 hover:text-indigo-800 cursor-pointer">User Accounts</span>
+                        <span class="text-lg font-semibold mb-3 hover:text-indigo-800 cursor-pointer">Cart Page</span>
+                        <span class="text-lg font-semibold hover:text-indigo-800 cursor-pointer">Order Details</span>
+                    </div>
+                </div>
+            </section>
+            <section id="right-side-view" class="flex flex-col">
+                <section id='admindashboard_view' class="w-3/4 hidden h-auto mb-4 ml-96 mr-4 rounded-lg overflow-y-auto flex flex-col items-center shadow-xl box-border">
+                    <div class="bg-white flex px-8 py-4 items-center justify-evenly rounded-xl w-full h-auto">
+                        <div class="flex flex-col">
+                            <span id="greetings-block" class="text-3xl hidden font-semibold text-indigo-600"><span id='greetings'></span> Administrator!</span>
+                            <span class="text-xl my-3 font-light text-gray-600">Here's what happening in your store Today</span>
+                            <div class="flex justify-evenly w-full my-5 ">
+                                <div class="flex flex-col items-center justify-center">
+                                    <span class="text-2xl text-indigo-700 font-semibold">Today's Sales</span>
+                                    <span class="text-xl font-bold">&#8377; 19,999</span>
+                                </div>
+                                <div class="flex flex-col items-center justify-center">
+                                    <span class="text-2xl text-indigo-700 font-semibold">Today's Visitors</span>
+                                    <span class="text-xl font-bold">4562</span>
+                                </div>
+                            </div>
+                        </div>
+                        <img class="animate-pulse ml-24 rounded-xl transition" src="{% static 'images/Images/Shop_Vector_Design.jpg' %}" >
+                    </div>
+                    <div class="my-5 h-auto flex justify-evenly w-full">
+                        <div class="w-2/5 py-5 px-6 items-center justify-center flex flex-col bg-white shadow-xl rounded-xl">
+                            <span class="text-2xl font-semibold text-indigo-700">Weekly Sales</span>
+                            <span class="text-2xl mt-4 font-medium text-gray-600">&#8377; 12K</span>
+                            <span class="text-md mt-4 py-2 font-bold px-4 rounded-2xl bg-green-300 text-green-800">+ 5.2 %</span> 
+                        </div>
+                        <div class="w-2/5 py-5 px-6 items-center justify-center flex flex-col bg-white shadow-xl rounded-xl">
+                            <span class="text-2xl font-semibold text-indigo-700">Product Share</span>
+                            <span class="text-2xl mt-4 font-medium text-gray-600">34.5 %</span>
+                            <span class="text-md mt-4 py-2 font-bold px-4 rounded-2xl bg-yellow-300 text-yellow-800">+ 3.2 %</span>
+                        </div>
+                    </div>
+                    <div class="my-5 h-auto flex justify-evenly w-full">
+                        <div class="w-2/5 py-5 px-6 items-center justify-center flex flex-col bg-white shadow-xl rounded-xl">
+                            <span class="text-2xl font-semibold text-indigo-700">Market Share</span>
+                            <div class="mt-4 w-3/5 flex justify-between">
+                                <span class="text-lg font-medium text-gray-600">Apple</span>
+                                <span class="text-lg font-light text-indigo-700">43 %</span>
+                            </div>
+                            <div class="mt-4 w-3/5 flex justify-between">
+                                <span class="text-lg font-medium text-gray-600">Samsung</span>
+                                <span class="text-lg font-light text-indigo-700">26 %</span>
+                            </div>
+                            <div class="mt-4 w-3/5 flex justify-between">
+                                <span class="text-lg font-medium text-gray-600">HP</span>
+                                <span class="text-lg font-light text-indigo-700">27 %</span>
+                            </div>
+                        </div>
+                        <div class="w-2/5 py-5 px-6 items-center justify-center flex flex-col bg-white shadow-xl rounded-xl">
+                            <span class="text-2xl font-semibold text-indigo-700">Total Orders</span>
+                            <span class="text-2xl mt-4 font-medium text-gray-600">2.7 K</span>
+                            <span class="text-md mt-4 py-2 font-bold px-4 rounded-2xl bg-red-300 text-red-800">+ 15.3 %</span>
+                        </div>
+                    </div>
+                    <div class="mb-5 w-full flex flex-col h-auto py-4 px-8 bg-white rounded-xl shadow-2xl">
+                        <div class="flex items-start justify-start">
+                            <div style="border-style: none solid solid none; border-width: 1px; border-color: rgba(128, 128, 128, 0.4); " class="flex pl-12 ml-1 pr-16 py-2 flex-col justify-start">
+                                <span class="text-3xl text-indigo-700 font-semibold">Orders</span>
+                                <span class="text-3xl my-4 font-semibold">14,367</span>
+                                <span class="text-sm font-light">(Previous Year Sales)</span>
+                                <div class="flex mb-4 align-middle items-center">
+                                    <span class="text-lg font-normal">12,854</span>
+                                    <span class="text-lg ml-6 font-semibold px-3 rounded-2xl py-2 bg-green-200 text-green-800">+ 3.4 %</span>
+                                </div>
+                            </div>
+                            <div style="border-style: none solid solid none; border-width: 1px; border-color: rgba(128, 128, 128, 0.4);" class="flex pl-10 pr-20 py-2 flex-col justify-start">
+                                <span class="text-3xl text-indigo-700 font-semibold">Items Sold</span>
+                                <span class="text-3xl my-4 font-semibold">1,436</span>
+                                <span class="text-sm font-light">(Previous Year Sales)</span>
+                                <div class="flex mb-4 align-middle items-center">
+                                    <span class="text-lg font-normal">12,854</span>
+                                    <span class="text-lg ml-6 font-semibold px-3 rounded-2xl py-2 bg-green-200 text-green-800">+ 2.5 %</span>
+                                </div>
+                            </div>
+                            <div style="border-style: none none solid none; border-width: 1px; border-color: rgba(128, 128, 128, 0.4);" class="flex pl-10 pb-3 pr-10 pt-2 flex-col justify-start">
+                                <span class="text-2xl text-indigo-700 font-semibold">Refunds Provided</span>
+                                <span class="text-3xl my-4 font-semibold">&#8377; 2,100.00</span>
+                                <span class="text-sm font-light">(Previous Year Refunds)</span>
+                                <div class="flex mb-4 align-middle items-center">
+                                    <span class="text-lg font-normal">&#8377; 3,125.00</span>
+                                    <span class="text-lg ml-6 font-semibold px-3 rounded-2xl py-2 bg-green-200 text-green-800">+ 5.6 %</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div style="border-style: none solid none none; border-width: 1px; border-color: rgba(128, 128, 128, 0.4); " class="flex pl-6 pr-10 py-2 flex-col items-start justify-start">
+                                <span class="text-3xl text-indigo-700 font-semibold">Gross Sales</span>
+                                <span class="text-3xl my-4 font-semibold">&#8377; 245.65</span>
+                                <span class="text-sm font-light">(Previous Year Gross Sales)</span>
+                                <div class="flex mb-4 align-middle items-center">
+                                    <span class="text-lg font-normal">&#8377; 195.90</span>
+                                    <span class="text-lg ml-6 font-semibold px-3 rounded-2xl py-2 bg-green-200 text-green-800">+ 35.6 %</span>
+                                </div>
+                            </div>
+                            <div style="border-style: none solid none none; border-width: 1px; border-color: rgba(128, 128, 128, 0.4);" class="flex pl-10 pr-12 py-2 flex-col justify-start">
+                                <span class="text-2xl text-indigo-700 font-semibold">Shipping Charges</span>
+                                <span class="text-3xl my-4 font-semibold">&#8377; 3,468.50</span>
+                                <span class="text-sm font-light">(Previous Year Charges)</span>
+                                <div class="flex mb-4 align-middle items-center">
+                                    <span class="text-lg font-normal">&#8377; 2976.90</span>
+                                    <span class="text-lg ml-6 font-semibold px-3 rounded-2xl py-2 bg-green-200 text-green-800">+ 27.8 %</span>
+                                </div>
+                            </div>
+                            <div style="border-style: none; border-width: 1px; border-color: rgba(128, 128, 128, 0.4);" class="flex pl-10 pr-8 py-2 flex-col justify-start">
+                                <span class="text-3xl text-indigo-700 font-semibold">Order Processing</span>
+                                <span class="text-3xl my-4 font-semibold">634</span>
+                                <span class="text-sm font-light">(Previous Year Orders)</span>
+                                <div class="flex mb-4 align-middle items-center">
+                                    <span class="text-lg font-normal">12,854</span>
+                                    <span class="text-lg ml-6 font-semibold px-3 rounded-2xl py-2 bg-green-200 text-green-800">+ 12.4 %</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="homepage-adminsection" class="w-3/4 bg-white h-auto mb-4 ml-96 mr-4 rounded-lg overflow-y-auto flex flex-col items-center shadow-xl box-border">
+                    <div class="w-full">
+                        <span class="text-3xl font-semibold">Top Categories</span>
+                    </div>
+                </section>
+            </section>
+        </section>
+        <section class="container-lg flex flex-col z-20 h-full place-items-end">
+            <div class=" h-15 flex content-end items-end">
+                <span id="back-to-top" class="hidden font-semibold text-lg mb-3 mr-4">Back to Top</span>
+                <a id="btt-image" href="#top-page"><img class="border border-solid border-black rounded-full cursor-pointer w-8 h-8 lg:w-14 lg:h-14 mt-8 mr-4 lg:mt-12 lg:mr-16" src="{% static 'images/arrow_upward_black_48dp.svg' %}" /></a>
+            </div>
+            <section class="bg-gradient-to-r from-indigo-500 via-indigo-600 to-indigo-800 w-screen flex flex-col h-full mt-10">
+                <div class="flex flex-col md:flex-row justify-evenly items-start my-6 mx-2 lg:my-12 xl:mx-24">
+                    <div class="flex flex-col">
+                        <span class="font-semibold text-white text-xl lg:text-2xl mb-2 lg:mb-4">Shop By Departments</span>
+                        <a class="mt-2" href="{% url 'clothing' %}"><span class="font-medium text-gray-200 text-lg lg:text-xl pl-4 lg:pl-8 cursor-pointer">Clothing</span></a>
+                        <a class="mt-2" href="{% url 'electronics' %}"><span class="font-medium text-gray-200 text-lg lg:text-xl pl-4 lg:pl-8 mt-2 cursor-pointer">Electronics</span></a>
+                        <a class="mt-2" href="{% url 'business_promotions' %}"><span class="font-medium text-gray-200 text-lg lg:text-xl pl-4 lg:pl-8 mt-2 cursor-pointer">Business Promotions</span></a>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-semibold text-white text-xl lg:text-2xl mb-2 lg:mb-4">Customer Zone</span>
+                        <span class="font-medium text-gray-200 text-lg lg:text-xl pl-4 lg:pl-8 mt-2 cursor-pointer">Your Accont</span>
+                        <span class="font-medium text-gray-200 text-lg lg:text-xl pl-4 lg:pl-8 mt-2 cursor-pointer">Delivery Charges</span>
+                        <span class="font-medium text-gray-200 text-lg lg:text-xl pl-4 lg:pl-8 mt-2 cursor-pointer">Refunds & Replacements</span>
+                        <span class="font-medium text-gray-200 text-lg lg:text-xl pl-4 lg:pl-8 mt-2 cursor-pointer">Order Tracking</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-semibold text-white text-xl lg:text-2xl mb-2">Connect With Us</span>
+                        <div class="flex">
+                            <img class="pl-8" src="{% static 'images/icons8-facebook-circled.svg' %}" />
+                            <img class="pl-8" src="{% static 'images/icons8-instagram-logo.svg' %}" />
+                            <img class="pl-8" src="{% static 'images/icons8-twitter.svg' %}" />
+                        </div>
+                        <span class="font-semibold text-white text-xl lg:text-2xl mt-8 mb-2">Download Our App</span>
+                        <div class="flex flex-col lg:flex-row">
+                            <div class="h-30 w-48 ml-5">
+                                <img class="rounded-xl" src="{% static 'images/google-play-badge.png' %}" />
+                            </div>
+                            <div class="h-30 w-48 mt-5 lg:mt-0 ml-5">
+                                <img class="rounded-xl" src="{% static 'images/App_Store_Badge.jpg' %}" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center mb-5 justify-center">
+                    <img class="h-5 w-5 lg:h-7 lg:w-7 mr-2" src="{% static 'images/copyright_white_48dp.svg' %}" />
+                    <span class="text-md lg:text-lg font-semibold text-white">All Rights Reserved - Masgarti INC,.</span>
+                </div>
+            </section>
+        </section>
+    </section>
+    <script>
+        setInterval(function() {
+            greetingsFunc();
+        }, 1000);
+
+        let greetingsFunc = function() {
+            let myDate = new Date();
+            let hours = myDate.getHours();
+            let greetings = document.getElementById('greetings');
+            document.getElementById('greetings-block').classList.remove('hidden');
+            if(hours < 12) 
+                greetings.innerHTML = 'Good Morning,';
+            else if((hours >= 12) && (hours < 17))
+                greetings.innerHTML = 'Good Afternoon,';
+            else if((hours >= 17) && (hours <= 24))
+                greetings.innerHTML = 'Good Evening,';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+web: gunicorm Masgarti_INC.wsgi --log-file -

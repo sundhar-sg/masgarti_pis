@@ -1,0 +1,251 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masgarti INC,. - Clothing</title>
+    <link rel="stylesheet" href="{% static 'main_styles.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+        // Add smooth scrolling to all links
+        $("#btt-image").on('click', function(event) {
+
+            // Make sure this.hash has a value before overriding default behavior
+            if (this.hash !== "") {
+            // Prevent default anchor click behavior
+            event.preventDefault();
+
+            // Store hash
+            var hash = this.hash;
+
+            // Using jQuery's animate() method to add smooth page scroll
+            // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+            $('html, body').animate({
+                scrollTop: $(hash).offset().top
+            }, 800, function(){
+        
+                // Add hash (#) to URL when done scrolling (default click behavior)
+                window.location.hash = hash;
+            });
+            } // End if
+        });
+        });
+    </script>
+    <style>
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 2px transparent; 
+            border-radius: 4px;
+        }
+        
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background-color: lightgray;
+            border-radius: 6px;
+        }
+
+        .user-account {
+            position: relative;
+            display: flex;
+            justify-content: space-evenly;
+            cursor: pointer;
+            margin: 6px 0;
+        }
+
+        .account-menu {
+            visibility: hidden;
+            opacity: 0;
+            background-color: white;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            transform: translateY(-3em);
+            z-index: -1;
+            transition: all 0.3s ease 0s, visibility 0s linear 0.03s, z-index 0s linear 0.01s;
+        }
+
+        .user-account:focus .account-menu,
+        .user-account:focus-within .account-menu,
+        .user-account:hover .account-menu {
+            visibility: visible;
+            z-index: 1;
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0s, 0s, 0.3s;
+        }
+
+        .account-menu li {
+            width: 100%;
+        }
+
+        .account-menu li:hover {
+            background-color: #5C6BC0;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <section id="top-page" class="overflow-x-hidden bg-gray-200">
+        <section class="content-center w-screen h-full items-center">
+            <section class="fixed z-30 w-screen bg-gradient-to-r from-indigo-500 via-indigo-600 to-indigo-800 h-14 md:h-20 flex items-center justify-between p-5">
+                <div class="flex justify-evenly align-middle items-center">
+                    <a class="outline-none cursor-pointer" href="{% url 'homepage' %}"><img class="w-24 md:w-64 h-14 md:h-24" src="{% static 'images/Logos/Masgarti-logos_transparent.png' %}" /></a>
+                    <div class="font-sans items-center hidden lg:block md:ml-10 space-x-2 p-2">
+                        <span class="text-xl rounded-2xl px-5 py-1 text-black bg-white border-black">Clothing</span>
+                        <a class="outline-none cursor-pointer" href="{% url 'electronics' %}"><span class="text-xl text-gray-200 hover: rounded-2xl hover: px-5 hover: py-1 hover:text-black hover:bg-white hover:border-black">Electronics</span></a>
+                        <a class="outline-none cursor-pointer" href="{% url 'business_promotions' %}"><span class="text-xl text-gray-200 hover: rounded-2xl hover: px-5 hover: py-1 hover:text-black hover:bg-white hover:border-black">Business Promotions</span></a>
+                    </div>
+                </div>
+                <div class="font-sans flex items-center cursor-pointer space-x-2 md:space-x-6">
+                    {% if request.session.username %}
+                        <ul class="user-account">
+                            <li><span class="text-md md:text-xl text-white md:font-semibold">Welcome {{ request.session.username }}</span></li>
+                            <li>
+                                <img class="w-6 h-6 md:w-8 md:h-8 ml-1" src="{% static 'images/arrow_drop_down_white_48dp.svg' %}">
+                                <ul class="account-menu">
+                                    <li class="py-3"><a href="{% url 'user-details-view' %}?account_url={{ request.get_full_path }}">My Account</a></li>
+                                    <li class="py-3"><a href="#">My Orders</a></li>
+                                    <form action="" method="post">
+                                        <li class="py-3 cursor-pointer">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="redirect_url" value="{{ request.get_full_path }}" />
+                                            <input class="w-full h-full outline-none cursor-pointer bg-transparent" type="submit" name="signout" value="Sign Out" />
+                                        </li>
+                                    </form>
+                                </ul>
+                            </li>
+                        </ul>
+                        {% else %}
+                        <div class="w-auto">
+                            <a class="cursor-pointer" href="{% url 'loginview' %}?next={{ request.get_full_path }}"><span class="text-sm md:text-xl text-gray-200 hover: rounded-2xl hover: px-5 hover: py-1 hover:text-black hover:bg-white hover:border-black">Login</span></a>
+                            <a class="cursor-pointer" href="{% url 'signupview' %}"><span class="text-sm md:text-xl text-gray-200 hover: rounded-2xl hover: px-5 hover: py-1 hover:text-black hover:bg-white hover:border-black">Sign Up</span></a>
+                        </div>
+                    {% endif %}
+                    <img class="bg-transparent h-8 w-8 md:h-12 md:w-12" src="{% static 'images/shopping_cart_white_48dp.svg' %}" />
+                </div>
+            </section>
+            <section class="h-auto content-center flex flex-col items-center relative bg-indigo-500">
+                <div class="flex flex-col  items-center mx-6 mt-20 md:mt-36 z-10 absolute">
+                    <span class="text-md font-semibold md:text-5xl text-white">Welcome to Masgarti Clothing</span>
+                    <span class="text-xs text-center md:text-2xl text-gray-200 pt-5">Your Top Destination for Customized Clothing Products</span>
+                </div>
+                <img class="w-screen h-80 md:h-full mix-blend-multiply z-0" src="{% static 'images/Images/Clothing_Poster_3.jpg' %}"/>
+            </section>
+            <section class="h-auto flex lg:h-72 mb-24 mx-1 md:ml-14 lg:ml-32 items-center z-20 absolute -mt-14 lg:-mt-36">
+                <a href="{% url 'menstshirts' %}">
+                    <div class="bg-white w-24 h-48 md:w-28 md:h-56 lg:w-64 lg:h-96 flex flex-col justify-start items-center rounded-md shadow-2xl">
+                        <img class="w-full h-40 lg:h-80 rounded cursor-pointer" src="{% static 'images/Images/Mens_Clothing_2.jpg' %}" />
+                        <span class="font-semibold text-md lg:text-xl my-5 cursor-pointer">Men</span>
+                    </div>
+                </a>
+                <a href="{% url 'womenstshirts' %}">
+                    <div class="bg-white w-24 h-48 md:w-28 md:h-56 lg:w-64 lg:h-96 flex flex-col justify-start items-center rounded-md shadow-2xl">
+                        <img class="w-full h-40 lg:h-80 rounded cursor-pointer" src="{% static 'images/Images/Womens_Clothing_1.jpg' %}" />
+                        <span class="font-semibold text-md lg:text-xl my-5 cursor-pointer">Women</span>
+                    </div>
+                </a>
+                <a href="{% url 'officewearstore' %}">
+                    <div class="bg-white w-24 h-48 md:w-28 md:h-56 lg:w-64 lg:h-96 flex flex-col justify-start items-center rounded-md shadow-2xl">
+                        <img class="w-full h-40 lg:h-80 rounded cursor-pointer" src="{% static 'images/Images/Office_Wears.jpg' %}" />
+                        <span class="font-semibold text-md lg:text-xl my-5 cursor-pointer">Office Wears</span>
+                    </div>
+                </a>
+            </section>
+        </section>
+        <section class="mt-40 md:mt-52 lg:mt-60 h-auto lg:h-full flex flex-col justify-evenly items-center w-screen">
+            <span class="text-lg md:text-2xl lg:text-4xl font-semibold">Top Offers On Clothing</span> 
+            <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 justify-evenly mx-2 mt-6 lg:mt-16 items-center">
+                <a href="{% url 'menstshirts' %}">
+                    <div class="w-64 lg:w-80 mx-3 flex flex-col lg:mx-12 h-64 lg:h-96 items-center rounded-2xl shadow-2xl bg-white">
+                        <img class="w-64 lg:w-80 h-48 lg: h-4/5 rounded-t-2xl cursor-pointer" src="{% static 'images/Images/Mens_T-Shirts.png' %}" />
+                        <span class="text-md lg:text-xl font-semibold text-black mt-4 cursor-pointer">25%  Off on Men's T - Shirts</span>
+                    </div>
+                </a>
+                <a href="{% url 'womenstshirts' %}">
+                    <div class="w-64 lg:w-80 mx-3 flex flex-col lg:mx-12 h-64 lg:h-96 items-center rounded-2xl shadow-2xl bg-white">
+                        <img class="w-64 lg:w-80 h-48 lg: h-4/5 rounded-t-2xl cursor-pointer" src="{% static 'images/Images/Womens_T-Shirts_1.jpg' %}" />
+                        <span class="text-md lg:text-xl font-semibold text-black mt-4 cursor-pointer">20%  Off on Women's T - Shirts</span>
+                    </div>
+                </a>
+            </div>
+            <div class="flex flex-col md:flex-row justify-evenly mt-16 items-center">
+                <a href="{% url 'menstshirts' %}">
+                    <div class="w-64 lg:w-80 mx-3 flex flex-col lg:mx-12 h-64 lg:h-96 items-center rounded-2xl shadow-2xl bg-white">
+                        <img class="w-64 lg:w-80 h-48 lg: h-4/5 rounded-t-2xl cursor-pointer" src="{% static 'images/Images/Office_Wears_Mens.jpg' %}" />
+                        <span class="text-md lg:text-xl font-semibold text-black mt-4 cursor-pointer">15%  Off on Men's Office Wears</span>
+                    </div>
+                </a>
+                <a class="mt-8 md:mt-0" href="{% url 'womenstshirts' %}">
+                    <div class="w-64 lg:w-80 mx-3 flex flex-col lg:mx-12 h-64 lg:h-96 items-center rounded-2xl shadow-2xl bg-white">
+                        <img class="w-64 lg:w-80 h-48 lg: h-4/5 rounded-t-2xl cursor-pointer" src="{% static 'images/Images/Office_Wears_Womens.jpg' %}" />
+                        <span class="text-md lg:text-xl font-semibold text-black mt-4 cursor-pointer">15%  Off on Women's Office Wears</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+        <section class="flex flex-col z-20 h-full place-items-end">
+            <div class="h-15 flex content-end items-end">
+                <span id="back-to-top" class="hidden font-semibold text-lg mb-3 mr-4">Back to Top</span>
+                <a id="btt-image" href="#top-page"><img class="border border-solid w-10 h-10 border-black rounded-full cursor-pointer mt-6 mr-3 lg:mt-12 lg:mr-16" src="{% static 'images/arrow_upward_black_48dp.svg' %}" /></a>
+            </div>
+            <section class="bg-gradient-to-r from-indigo-500 via-indigo-600 to-indigo-800 w-screen flex flex-col py-6 h-full mt-10">
+                <div class="flex flex-col md:flex-row justify-evenly items-start mx-3 lg:my-12 lg:mx-24">
+                    <div class="flex flex-col">
+                        <span class="font-semibold text-white text-xl md:text-2xl mb-4">Shop By Departments</span>
+                        <a class="mt-2" href="{% url 'clothing' %}"><span class="font-medium text-gray-200 text-lg lg:text-xl pl-4 lg:pl-8 cursor-pointer">Clothing</span></a>
+                        <a class="mt-2" href="{% url 'electronics' %}"><span class="font-medium text-gray-200 text-lg lg:text-xl pl-4 lg:pl-8 mt-2 cursor-pointer">Electronics</span></a>
+                        <a class="mt-2" href="{% url 'business_promotions' %}"><span class="font-medium text-gray-200 text-lg lg:text-xl pl-4 lg:pl-8 mt-2 cursor-pointer">Business Promotions</span></a>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-semibold text-white text-xl md:text-2xl mb-4">Customer Zone</span>
+                        <span class="font-medium text-gray-200 text-lg lg:text-xl pl-4 lg:pl-8 mt-2 cursor-pointer">Your Accont</span>
+                        <span class="font-medium text-gray-200 text-lg lg:text-xl pl-4 lg:pl-8 mt-2 cursor-pointer">Delivery Charges</span>
+                        <span class="font-medium text-gray-200 text-lg lg:text-xl pl-4 lg:pl-8 mt-2 cursor-pointer">Refunds & Replacements</span>
+                        <span class="font-medium text-gray-200 text-lg lg:text-xl pl-4 lg:pl-8 mt-2 cursor-pointer">Order Tracking</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-semibold text-white text-xl md:text-2xl mb-2">Connect With Us</span>
+                        <div class="flex">
+                            <img class="pl-8" src="{% static 'images/icons8-facebook-circled.svg' %}" />
+                            <img class="pl-8" src="{% static 'images/icons8-instagram-logo.svg' %}" />
+                            <img class="pl-8" src="{% static 'images/icons8-twitter.svg' %}" />
+                        </div>
+                        <span class="font-semibold text-white text-xl md:text-2xl mt-8 mb-2">Download Our App</span>
+                        <div class="flex flex-col lg:flex-row">
+                            <div class="h-30 w-48 ml-5">
+                                <img class="rounded-xl" src="{% static 'images/google-play-badge.png' %}" />
+                            </div>
+                            <div class="h-30 w-48 mt-5 lg:mt-0 ml-5">
+                                <img class="rounded-xl" src="{% static 'images/App_Store_Badge.jpg' %}" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex mt-5 items-center justify-center">
+                    <img class="h-5 w-5 md:h-7 md:w-7 mr-2" src="{% static 'images/copyright_white_48dp.svg' %}" />
+                    <span class="text-md md:text-lg font-semibold text-white">All Rights Reserved - Masgarti INC,.</span>
+                </div>
+            </section>
+        </section>
+    </section>
+    <script>
+        const btt = document.getElementById("back-to-top");
+        const btt_image = document.getElementById("btt-image");
+        btt_image.addEventListener('mouseover', function() {
+            btt.classList.remove('hidden');
+        })
+        btt_image.addEventListener('mouseout', function() {
+            btt.classList.add('hidden');
+        })
+    </script>
+</body>
+</html>

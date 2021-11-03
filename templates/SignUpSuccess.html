@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masgarti INC,. - SignUp Page</title>
+    <link rel="stylesheet" href="{% static 'main_styles.css' %}">
+    <style>
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 2px transparent; 
+            border-radius: 4px;
+        }
+        
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background-color: lightgray;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+    <section class="overflow-x-hidden bg-gray-200">
+        <section class="content-center w-screen h-screen items-center">
+            <section class="container-lg h-20 px-8 py-2 bg-gradient-to-r from-indigo-500 via-indigo-600 to-indigo-800">
+                <div class="font-sans items-center justify-between align-middle flex space-x-2 p-2">
+                    <a class="outline-none cursor-pointer" href="{% url 'homepage' %}"><img class="w-24 md:w-64 h-14 md:h-24" src="{% static 'images/Logos/Masgarti-logos_transparent.png' %}" /></a>
+                    <span class="font-semibold text-xl text-white mb-2">Your Top Destination For Customized Products</span>
+                    <img class="h-12 w-12 cursor-pointer" src="{% static 'images/shopping_cart_white_48dp.svg' %}" />
+                </div>
+            </section>
+            <section class="w-screen -mt-16 h-screen flex flex-col items-center justify-center">
+                <span class="text-4xl text-black font-semibold">Your new account is successfully registered with us.</span>
+                <span class="text-xl mt-5 font-medium text-black">Now Login with your account credentials to get started with our Services.</span>
+                <a href="{% url 'loginview' %}?next=/">
+                    <button class="bg-opacity-100 bg-indigo-800 h-16 w-72 mt-8 rounded-2xl items-center justify-center" value="Login">
+                        <span class="text-2xl font-semibold text-white">Proceed to Login</span>
+                    </button>  
+                </a>
+            </section>
+            <section class="bg-gradient-to-r from-indigo-500 via-indigo-600 to-indigo-800 w-screen flex flex-col h-96 -mt-14">
+                <div class="flex justify-evenly items-start my-12 mx-24">
+                    <div class="flex flex-col">
+                        <span class="font-semibold text-white text-2xl mb-4">Shop By Departments</span>
+                        <a class="mt-2" href="{% url 'clothing' %}"><span class="font-medium text-gray-200 text-xl pl-8 cursor-pointer">Clothing</span></a>
+                        <a class="mt-2" href="{% url 'electronics' %}"><span class="font-medium text-gray-200 text-xl pl-8 mt-2 cursor-pointer">Electronics</span></a>
+                        <a class="mt-2" href="{% url 'business_promotions' %}"><span class="font-medium text-gray-200 text-xl pl-8 mt-2 cursor-pointer">Business Promotions</span></a>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-semibold text-white text-2xl mb-4">Customer Zone</span>
+                        <span class="font-medium text-gray-200 text-xl pl-8 mt-2 cursor-pointer">Your Accont</span>
+                        <span class="font-medium text-gray-200 text-xl pl-8 mt-2 cursor-pointer">Delivery Charges</span>
+                        <span class="font-medium text-gray-200 text-xl pl-8 mt-2 cursor-pointer">Refunds & Replacements</span>
+                        <span class="font-medium text-gray-200 text-xl pl-8 mt-2 cursor-pointer">Order Tracking</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-semibold text-white text-2xl mb-2">Connect With Us</span>
+                        <div class="flex">
+                            <img class="pl-8" src="{% static 'images/icons8-facebook-circled.svg' %}" />
+                            <img class="pl-8" src="{% static 'images/icons8-instagram-logo.svg' %}" />
+                            <img class="pl-8" src="{% static 'images/icons8-twitter.svg' %}" />
+                        </div>
+                        <span class="font-semibold text-white text-2xl mt-8 mb-2">Download Our App</span>
+                        <div class="flex">
+                            <div class="h-30 w-48 ml-5">
+                                <img class="rounded-xl" src="{% static 'images/google-play-badge.png' %}" />
+                            </div>
+                            <div class="h-30 w-48 ml-5">
+                                <img class="rounded-xl" src="{% static 'images/App_Store_Badge.jpg' %}" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-center">
+                    <img class="h-7 w-7 mr-2" src="{% static 'images/copyright_white_48dp.svg' %}" />
+                    <span class="text-lg font-semibold text-white">All Rights Reserved - Masgarti INC,.</span>
+                </div>
+            </section>
+        </section>
+    </section>
+</body>
+</html>

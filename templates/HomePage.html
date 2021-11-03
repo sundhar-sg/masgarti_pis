@@ -1,0 +1,271 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Masgarti INC</title>
+    <link rel="stylesheet" href="{% static 'main_styles.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+        // Add smooth scrolling to all links
+        $("#btt-image").on('click', function(event) {
+
+            // Make sure this.hash has a value before overriding default behavior
+            if (this.hash !== "") {
+            // Prevent default anchor click behavior
+            event.preventDefault();
+
+            // Store hash
+            var hash = this.hash;
+
+            // Using jQuery's animate() method to add smooth page scroll
+            // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+            $('html, body').animate({
+                scrollTop: $(hash).offset().top
+            }, 800, function(){
+        
+                // Add hash (#) to URL when done scrolling (default click behavior)
+                window.location.hash = hash;
+            });
+            } // End if
+        });
+        });
+    </script>
+    <style>
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 2px transparent; 
+            border-radius: 4px;
+        }
+        
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background-color: lightgray;
+            border-radius: 6px;
+        }
+
+        .user-account {
+            position: relative;
+            display: flex;
+            justify-content: space-evenly;
+            cursor: pointer;
+            margin: 6px 0;
+        }
+
+        .account-menu {
+            visibility: hidden;
+            opacity: 0;
+            background-color: white;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            transform: translateY(-3em);
+            z-index: -1;
+            transition: all 0.3s ease 0s, visibility 0s linear 0.03s, z-index 0s linear 0.01s;
+        }
+
+        .user-account:focus .account-menu,
+        .user-account:focus-within .account-menu,
+        .user-account:hover .account-menu {
+            visibility: visible;
+            z-index: 1;
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0s, 0s, 0.3s;
+        }
+
+        .account-menu li {
+            width: 100%;
+        }
+
+        .account-menu li:hover {
+            background-color: #5C6BC0;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <section id="top-page" class="overflow-x-hidden bg-gray-200">
+        <section class="bg-gradient-to-r content-center w-screen h-auto xl:h-screen items-center from-indigo-500 via-indigo-600 to-indigo-800 overflow-y-hidden">
+            <section class="bg-gradient-to-r from-indigo-500 via-indigo-600 to-indigo-800 fixed z-30 w-screen h-12 md:h-20 flex items-center justify-between md:p-5 py-5 px-2">
+                <div class="flex justify-evenly align-middle items-center">
+                    <a class="outline-none cursor-pointer" href="{% url 'homepage' %}"><img class="w-24 md:w-64 h-14 md:h-24" src="{% static 'images/Logos/Masgarti-logos_transparent.png' %}" /></a>
+                    <div class="font-sans items-center hidden lg:block md:ml-10 space-x-2 p-2">
+                        <a class="outline-none cursor-pointer" href="{% url 'clothing' %}"><span class="text-xl text-gray-200 hover: rounded-2xl hover: px-5 hover: py-1 hover:text-black hover:bg-white hover:border-black">Clothing</span></a>
+                        <a class="outline-none cursor-pointer" href="{% url 'electronics' %}"><span class="text-xl text-gray-200 hover: rounded-2xl hover: px-5 hover: py-1 hover:text-black hover:bg-white hover:border-black">Electronics</span></a>
+                        <a class="outline-none cursor-pointer" href="{% url 'business_promotions' %}"><span class="text-xl text-gray-200 hover: rounded-2xl hover: px-5 hover: py-1 hover:text-black hover:bg-white hover:border-black">Business Promotions</span></a>
+                    </div>
+                </div>
+                <div class="font-sans flex items-center cursor-pointer space-x-6">
+                    {% if request.session.username %}
+                        <ul class="user-account">
+                            <li><span class="text-md md:text-xl text-white font-semibold">Welcome {{ request.session.username }}</span></li>
+                            <li>
+                                <img class="w-6 h-6 md:w-8 md:h-8 ml-1" src="{% static 'images/arrow_drop_down_white_48dp.svg' %}">
+                                <ul class="account-menu">
+                                    <li class="py-3"><a href="{% url 'user-details-view' %}?account_url={{ request.get_full_path }}">My Account</a></li>
+                                    <li class="py-3"><a href="#">My Orders</a></li>
+                                    <form action="" method="post">
+                                        <li class="py-3 cursor-pointer">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="redirect_url" value="{{ request.get_full_path }}" />
+                                            <input class="w-full h-full outline-none cursor-pointer bg-transparent" type="submit" name="signout" value="Sign Out" />
+                                        </li>
+                                    </form>
+                                </ul>
+                            </li>
+                        </ul>
+                        {% else %}
+                        <div class="flex items-center space-x-2 md:space-x-7 justify-evenly">
+                            <a class="cursor-pointer" href="{% url 'loginview' %}?next={{ request.get_full_path }}"><span class="text-sm md:text-xl text-gray-200 hover: rounded-2xl hover: px-5 hover: py-1 hover:text-black hover:bg-white hover:border-black">Login</span></a>
+                            <a class="cursor-pointer" href="{% url 'signupview' %}"><span class="text-sm md:text-xl text-gray-200 hover: rounded-2xl hover: px-5 hover: py-1 hover:text-black hover:bg-white hover:border-black">Sign Up</span></a>
+                        </div>
+                    {% endif %}
+                    <img class="bg-transparent h-8 w-8 md:h-12 md:w-12" src="{% static 'images/shopping_cart_white_48dp.svg' %}" />
+                </div>
+            </section>
+            <section class="mt-16 pb-5 md:mt-24 flex flex-col xl:flex-row content-center items-center justify-evenly">
+                <div class="flex flex-col items-center align-middle justify-center">
+                    <span class="text-2xl md:text-4xl lg:text-6xl text-white">Welcome to Masgarti INC,.</span>
+                    <span class="text-lg md:text-2xl lg:text-4xl text-gray-200 text-center pt-5">Your Top Destination for Customized Products</span>
+                </div>
+                <img class="md:w-2/5 w-4/5 h-3/4 md:h-3/4 mt-4 md:mt-8 rounded-3xl animate-pulse" src="{% static 'images/Images/E_Commerce.jpg' %}" />
+            </section>
+        </section>
+        <section class="container-lg flex flex-col md:z-20 h-screen md:h-auto">
+            <div class="animate-pulse md:z-0">
+                <svg class="delay-1000" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                    <path fill="#5C6BC0" fill-opacity="1" d="M0,128L120,144C240,160,480,192,720,197.3C960,203,1200,181,1320,170.7L1440,160L1440,0L1320,0C1200,0,960,0,720,0C480,0,240,0,120,0L0,0Z"></path>
+                </svg>
+            </div>
+            <span class="text-2xl md:text-3xl md:z-20 absolute mt-8 md:mt-10 text-black font-semibold text-center w-full">Top Categories</span>
+            <div class="flex flex-col md:flex-row space-y-5 md:space-y-0 justify-evenly items-center md:z-10 mt-20 md:mt-28 md:mx-24 absolute">
+                <a href="{% url 'clothing' %}">
+                    <div class="flex flex-col items-center justify-center">
+                        <img class="w-4/5 h-3/4 md:h-4/5 md:w-3/4 rounded-2xl" src="{% static 'images/Images/Clothing_Poster.jpg' %}"/>
+                        <span class="text-lg md:text-2xl font-semibold text-center mt-2 md:mt-6">Clothing</span>
+                    </div>
+                </a>
+                <a href="{% url 'electronics' %}">
+                    <div class="flex flex-col items-center justify-center">
+                        <img class="w-4/5 h-3/4 md:h-4/5 md:w-3/4 rounded-2xl" src="{% static 'images/Images/Electronics_Poster_1.jpg' %}"/>
+                        <span class="text-lg md:text-2xl font-semibold text-center mt-2 md:mt-6">Electronics</span>
+                    </div>
+                </a>
+                <a href="{% url 'business_promotions' %}">
+                    <div class="flex flex-col items-center justify-center">
+                        <img class="w-4/5 h-3/4 md:h-4/5 md:w-3/4 rounded-2xl" src="{% static 'images/Images/Business_Promotions_1.jpg' %}"/>
+                        <span class="text-lg md:text-2xl font-semibold text-center mt-2 md:mt-6">Business Promotions</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+        <section id="todays-deals" class="lg:container-lg flex flex-col pt-36 md:pt-0 mt-96 md:mt-72 md:z-20 h-auto xl:h-screen border-black">
+            <span class="text-xl mt-4 md:text-3xl md:-mt-20 text-black font-semibold text-center w-full">Today's Deals</span>
+            <div class="flex flex-col md:flex-row justify-evenly items-center md:z-10 mt-10 md:mx-24">
+                <a href="{% url 'menstshirts' %}">
+                    <div class="flex flex-col items-center content-center">
+                        <img class="w-4/5 h-3/4 md:h-4/5 md:w-3/4 rounded-2xl shadow-lg" src="{% static 'images/Images/Customized_TShirts.jpg' %}"/>
+                        <span class="text-md md:text-2xl font-semibold text-center mt-6 mb-12">30% Off on Men's T-Shirts</span>
+                    </div>
+                </a>
+                <a href="{% url 'tabletsstore' %}">
+                    <div class="flex flex-col items-center content-center">
+                        <img class="w-4/5 h-3/4 md:h-4/5 md:w-3/4 rounded-2xl shadow-lg" src="{% static 'images/Images/Custom_Tablets.jpg' %}"/>
+                        <span class="text-md md:text-2xl font-semibold text-center mt-6 mb-12">25% Off on Customized Tablets</span>
+                    </div>
+                </a>
+                <a href="{% url 'laptopsstore' %}">
+                    <div class="flex flex-col items-center content-center">
+                        <img class="w-4/5 h-3/4 md:h-4/5 md:w-3/4 rounded-2xl shadow-lg" src="{% static 'images/Images/Customized_Laptops1.jpg' %}"/>
+                        <span class="text-md md:text-2xl font-semibold text-center mt-6 mb-12">20% Off on Customized Laptops</span>
+                    </div>
+                </a>
+            </div>
+            <div class="flex flex-col md:flex-row justify-evenly items-center md:z-10 md:mt-64 md:pt-32 md:mx-24 md:absolute">
+                <a href="{% url 'womenstshirts' %}">
+                    <div class="flex flex-col items-center content-center">
+                        <img class="w-4/5 h-3/4 md:h-4/5 md:w-3/4 rounded-2xl shadow-lg" src="{% static 'images/Images/Womens_Clothing.jpg' %}"/>
+                        <span class="text-md md:text-2xl font-semibold text-center mt-6 mb-12">20% Off on Women's Clothing</span>
+                    </div>
+                </a>
+                <a href="{% url 'brochurestore' %}">
+                    <div class="flex flex-col items-center content-center">
+                        <img class="w-4/5 h-3/4 md:h-4/5 md:w-3/4 rounded-2xl shadow-lg" src="{% static 'images/Images/4_Page_Brochure.png' %}"/>
+                        <span class="text-md md:text-2xl font-semibold text-center mt-6 mb-12">15% Off on Customized Brochures</span>
+                    </div>
+                </a>
+                <a href="{% url 'visitingcardstore' %}">
+                    <div class="flex flex-col items-center content-center">
+                        <img class="w-4/5 h-3/4 md:h-4/5 md:w-3/4 rounded-2xl shadow-lg mt-7" src="{% static 'images/Images/Visiting_Cards.png' %}"/>
+                        <span class="text-md md:text-2xl font-medium text-center mt-6 mb-12">10% Off on Customized Visiting Cards</span>
+                    </div>
+                </a>
+            </div>
+        </section> 
+        <section class="container-lg flex flex-col -mt-10 md:mt-20 xl:-mt-20 md:z-20 h-auto place-items-end">
+            <div class="md:mt-64 md:h-15 flex content-end items-end">
+                <span id="back-to-top" class="hidden font-semibold text-sm mb-2 md:text-lg md:mb-5 mr-4">Back to Top</span>
+                <a id="btt-image" href="#top-page"><img class="border border-solid border-black rounded-full w-8 h-8 lg:w-16 lg:h-16 cursor-pointer mt-12 mr-4 md:mr-16" src="{% static 'images/arrow_upward_black_48dp.svg' %}" /></a>
+            </div>
+            <section class="bg-gradient-to-r from-indigo-500 via-indigo-600 to-indigo-800 w-screen flex flex-col pb-5 h-full mt-4 md:mt-16">
+                <div class="flex flex-col md:flex-row justify-evenly items-start my-3 mx-2 md:my-12 xl:mx-24">
+                    <div class="flex flex-col mb-4">
+                        <span class="font-semibold text-white text-xl lg:text-2xl md:mb-4">Shop By Departments</span>
+                        <a class="mt-2" href="{% url 'clothing' %}"><span class="font-medium text-gray-200 text-lg lg:text-xl pl-4 lg:pl-8 cursor-pointer">Clothing</span></a>
+                        <a class="mt-2" href="{% url 'electronics' %}"><span class="font-medium text-gray-200 text-lg lg:text-xl pl-4 lg:pl-8 mt-2 cursor-pointer">Electronics</span></a>
+                        <a class="mt-2" href="{% url 'business_promotions' %}"><span class="font-medium text-gray-200 text-lg lg:text-xl pl-4 lg:pl-8 mt-2 cursor-pointer">Business Promotions</span></a>
+                    </div>
+                    <div class="flex flex-col mb-4">
+                        <span class="font-semibold text-white text-xl lg:text-2xl md:mb-4">Customer Zone</span>
+                        <span class="font-medium text-gray-200 text-lg lg:text-xl pl-4 lg:pl-8 mt-2 cursor-pointer">Your Accont</span>
+                        <span class="font-medium text-gray-200 text-lg lg:text-xl pl-4 lg:pl-8 mt-2 cursor-pointer">Delivery Charges</span>
+                        <span class="font-medium text-gray-200 text-lg lg:text-xl pl-4 lg:pl-8 mt-2 cursor-pointer">Refunds & Replacements</span>
+                        <span class="font-medium text-gray-200 text-lg lg:text-xl pl-4 lg:pl-8 mt-2 cursor-pointer">Order Tracking</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-semibold text-white text-xl lg:text-2xl md:mb-2">Connect With Us</span>
+                        <div class="flex">
+                            <img class="pl-8" src="{% static 'images/icons8-facebook-circled.svg' %}" />
+                            <img class="pl-8" src="{% static 'images/icons8-instagram-logo.svg' %}" />
+                            <img class="pl-8" src="{% static 'images/icons8-twitter.svg' %}" />
+                        </div>
+                        <span class="font-semibold text-white text-xl lg:text-2xl md:mt-8 mb-2">Download Our App</span>
+                        <div class="flex flex-col lg:flex-row">
+                            <div class="h-30 w-48 ml-5">
+                                <img class="rounded-xl" src="{% static 'images/google-play-badge.png' %}" />
+                            </div>
+                            <div class="h-30 w-48 mt-4 lg:mt-0 ml-5">
+                                <img class="rounded-xl" src="{% static 'images/App_Store_Badge.jpg' %}" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-center">
+                    <img class="h-4 w-4 md:h-7 md:w-7 mr-2" src="{% static 'images/copyright_white_48dp.svg' %}" />
+                    <span class="text-sm md:text-lg font-semibold text-white">All Rights Reserved - Masgarti INC,.</span>
+                </div>
+            </section>
+        </section>
+    </section>
+    <script>
+        const btt = document.getElementById("back-to-top");
+        const btt_image = document.getElementById("btt-image");
+        btt_image.addEventListener('mouseover', function() {
+            btt.classList.remove('hidden');
+        })
+        btt_image.addEventListener('mouseout', function() {
+            btt.classList.add('hidden');
+        })
+    </script>
+</body>
+</html>

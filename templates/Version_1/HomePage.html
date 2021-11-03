@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masgarti - PIS</title>
+    <link rel="stylesheet" href="../static/css/HomePage.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="banner">
+            <div class="background-image">
+                <img src="../images/Images/E_Commerce_Poster.jpg" />
+            </div>
+            <div class="header" id="header">
+                <div class="header-top">
+                    <img class="logo" src="">
+                    <div class="quote">
+                        <span>Top Destination for Customized Products</span>
+                    </div>
+                    <div class="account">
+                        <span>LOGIN</span>
+                        <span>SIGNUP</span>
+                        <img class="cart" src="../images/shopping_cart_white_48dp.svg">
+                    </div>
+                </div>
+                <div class="menu">
+                    <span id="all">ALL</span>
+                    <div id="all-modal" class="modal">
+                        <div class="modal-content">
+                            <div class="header-modal">
+                                <span class="all-title">MASGARTI Services</span>
+                                <span class="close">&times;</span>
+                            </div>
+                            <div class="body-modal">
+                                <div class="electronics">
+                                    <p>ELECTRONICS</p>
+                                    <div class="electronics-subsections">
+                                        <span>Tablet PC</span>
+                                        <span>Laptop PC</span>
+                                    </div>
+                                </div>
+                                <div class="fashion">
+                                <p>FASHION</p>
+                                    <div class="fashion-subsections">
+                                        <span>Men's Wears</span>
+                                        <span>Women's Wears</span>
+                                        <span>Office Wears</span>
+                                    </div>
+                                </div>
+                                <div class="business-promotions">
+                                <p>BUSINESS PROMOTIONS</p>
+                                    <div class="business-subssections">
+                                        <span>Visiting Cards</span>
+                                        <span>Brochures</span>
+                                        <span>Flyers</span>
+                                        <span>Postal Covers</span>
+                                        <span>Letter Heads</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="menu-items">FASHION</span>
+                    <span class="menu-items">ELECTRONICS</span>
+                    <span class="menu-items">BUSINESS PROMOTIONS</span>
+                </div>
+            </div>
+            <br>
+            <div class="top-products">
+                <img class="product1" src="../images/Images/Customized_TShirts.jpg">
+            </div>
+            <div class="today-deals">
+                <p>Today's Deals</p>
+                <div class="section-1">
+                    <div class="subsection-1">
+                        <img class="offer1" src="../images/Images/Customized_TShirts_1.jpg">
+                        <p>30% Off on Customized T-Shirts</p>
+                    </div>
+                    <div class="subsection-2">
+                        <img class="offer2" src="../images/Images/Customized_Phone_Case.jpg">
+                        <p>20% Off on Customized Electronics</p>
+                    </div>
+                    <div class="subsection-3">
+                        <img class="offer3" src="../images/Images/Customized_Shoes.jpg">
+                        <p>30% Off on Customized Sports Supplies</p>
+                    </div>
+                </div>
+                <div class="section-2">
+                    <div class="subsection-1">
+                        <img class="offer1" src="../images/Images/Customized_TShirts_2.jpg">
+                        <p>From Rs.399 Onwards</p>
+                    </div>
+                    <div class="subsection-2">
+                        <img class="offer2" src="../images/Images/Customized_Laptops.jpg">
+                        <p>30% Off on Customized Laptops</p>
+                    </div>
+                    <div class="subsection-3">
+                        <img class="offer3" src="../images/Images/Customized_Shoes_1.jpg">
+                        <p>25% Off on Customized Sports Shoes</p>
+                    </div>
+                </div>
+            </div>
+            <div class="back-to-top">
+                <img class="up-arrow" src="../images/arrow_upward_black_48dp.svg">
+            </div>
+        </div>
+        <div class="footer-main">
+            <div class="footer">
+                <div class="section-3">
+                    <div class="about">
+                        <div class="heading">
+                            <span>Get to Know Us</span>
+                        </div>
+                        <div class="body">
+                            <span>About Us</span>
+                            <span>Privacy Policy</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="section-4">
+                    <div class="social-media">
+                        <div class="heading">
+                            <span>Connect with Us</span>
+                        </div>
+                        <div class="body">
+                            <span>Facebook</span>
+                            <span>LinkedIn</span>
+                            <span>Twitter</span>
+                            <span>Instagram</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="section-5">
+                    <div class="help">
+                        <div class="heading">
+                            <span>Let Us Help You</span>
+                        </div>
+                        <div class="body">
+                            <span>Your Account</span>
+                            <span>Return Policy</span>
+                            <span>Help</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <span>Copyrights - 2021 Masgarti Inc,.</span>
+            </div>
+        </div>
+    </div>
+    <script>
+        var modal = document.getElementById("all-modal");
+        var btn = document.getElementById("all");
+        var span = document.getElementsByClassName("close")[0];
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        const backgroundchange = document.querySelector('.header');
+        window.addEventListener('scroll', () => {
+            console.log(window.scrollY);
+            if (window.scrollY > 500) {
+                backgroundchange.style.backgroundColor = `black`;
+            }
+            else 
+                backgroundchange.style.removeProperty('background-color');
+        })
+    </script>
+</body>
+</html>

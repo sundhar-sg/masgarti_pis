@@ -1,0 +1,96 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Fira Sans', sans-serif;
+    font-size: large;
+    font-weight: 500;
+}
+
+.header {
+    background-color: black;
+    height: 5vh;
+    color: white;
+    display: flex;
+    align-items: center;
+    vertical-align: middle;
+    justify-content: space-around;   
+    padding-top: 15px;
+    padding: 20px;
+}
+
+.header img {
+    height: 60px;
+    width: 150px;
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    align-items: center;
+    width: 30vw;
+    height: 75vh;
+    border-style: solid;
+    border-color: lightgray;
+    border-radius: 30px;
+    padding-top: 20px;
+    margin-top: 15px;
+}
+
+.body span {
+    margin-bottom: 8px;
+}
+
+.body-login {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    padding: 20px;
+}
+
+.body-login span {
+    margin-left: 5px;
+}
+
+.body-login input {
+    padding: 10px;
+    padding-left: 20px;
+    border-style: solid;
+    border-radius: 20px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.body-login input:focus {
+    outline: none;
+    padding-left: 10px;
+}
+
+.signin {
+    background-color: black;
+    color: white;
+    outline: none;
+    border: 0;
+    padding: 10px;
+    border-radius: 50px;
+}
+
+.copyrights {
+    padding-top: 10px;
+    justify-content: center;
+    text-align: center;
+}
+
+@media  only screen and (max-width: 768px) {
+    .header {
+        justify-content: center;
+    }
+
+    .header span {
+        display: none;
+    }
+
+    .body {
+        width: 75vw;
+    }
+}

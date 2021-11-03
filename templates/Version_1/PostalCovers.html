@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masgarti Inc - Postal Covers</title>
+    <link rel="stylesheet" href="../static/css/PostalCovers.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="banner">
+            <div class="header">
+                <div class="header-top">
+                    <img class="logo" src="">
+                    <div class="quote">
+                        <span>Top Destination for Customized Products</span>
+                    </div>
+                    <div class="account">
+                        <span>LOGIN</span>
+                        <span>SIGNUP</span>
+                        <img class="cart" src="../images/shopping_cart_white_48dp.svg">
+                    </div>
+                </div>
+                <div class="menu" id="menu">
+                    <span id="all">ALL</span>
+                    <div id="all-modal" class="modal">
+                        <div class="modal-content">
+                            <div class="header-modal">
+                                <span class="all-title">MASGARTI Services</span>
+                                <span class="close">&times;</span>
+                            </div>
+                            <div class="body-modal">
+                                <div class="electronics">
+                                    <p>ELECTRONICS</p>
+                                    <div class="electronics-subsections">
+                                        <span>Tablet PC</span>
+                                        <span>Laptop PC</span>
+                                    </div>
+                                </div>
+                                <div class="fashion">
+                                <p>FASHION</p>
+                                    <div class="fashion-subsections">
+                                        <span>Men's Wears</span>
+                                        <span>Women's Wears</span>
+                                        <span>Office Wears</span>
+                                    </div>
+                                </div>
+                                <div class="business-promotions">
+                                <p>BUSINESS PROMOTIONS</p>
+                                    <div class="business-subssections">
+                                        <span>Visiting Cards</span>
+                                        <span>Brochures</span>
+                                        <span>Flyers</span>
+                                        <span>Postal Covers</span>
+                                        <span>Letter Heads</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="menu-items">FASHION</span>
+                    <span class="menu-items">ELECTRONICS</span>
+                    <span class="menu-items">BUSINESS PROMOTIONS</span>
+                </div>
+            </div>
+            <div class="store-description">
+                <div class="store-title">
+                    <span>Postal Covers Designs</span>
+                </div>
+                <div class="store-details">
+                    <span>Customize our Poster Covers to add professional touch for every letters of your company</span>
+                </div>
+            </div>
+            <div class="flyers">
+                <img class="flyer-img" src="../images/Images/Postal_Covers_1.jpg">
+                <div class="flyer-description">
+                    <span class="flyer-title">Standard Postal Covers</span>
+                    <span class="flyer-details">Add a Professional look to your letters, invoices and quotations</span>
+                    <div class="flyer-features">
+                        <span>3 Available Sizes for our Letter Heads</span>
+                        <span>Full Coloured Printing</span>
+                        <span>150 GSM Smooth Finish Matte Paper for Quality Printing</span>
+                    </div>
+                    <div class="flyer-customization">
+                        <span>Paper Type</span>
+                        <div class="paper-type">
+                            <button value="A3">A3 (420 x 297mm)</button>
+                            <button value="A4">A4 (297 x 210mm)</button>
+                            <button value="Square">A5 (148.5 x 210mm)</button>
+                        </div>
+                    </div>
+                    <div class="quantity">
+                        <label for="quantity">Quantity</label>
+                        <select name="quantity" id="quantity">
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="150">150</option>
+                            <option value="200">200</option>
+                        </select>
+                    </div>
+                    <div class="flyer-price">
+                        <span>Price :</span>
+                        <span>Rs. 199</span>
+                    </div>
+                    <button class="flyer-button">Start Designing >></button>
+                </div>
+            </div>
+            <div class="back-to-top">
+                <img class="up-arrow" src="../images/arrow_upward_black_48dp.svg">
+            </div>
+            <div class="footer-main">
+                <div class="footer">
+                    <div class="section-3">
+                        <div class="about">
+                            <div class="heading">
+                                <span>Get to Know Us</span>
+                            </div>
+                            <div class="body">
+                                <span>About Us</span>
+                                <span>Privacy Policy</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section-4">
+                        <div class="social-media">
+                            <div class="heading">
+                                <span>Connect with Us</span>
+                            </div>
+                            <div class="body">
+                                <span>Facebook</span>
+                                <span>LinkedIn</span>
+                                <span>Twitter</span>
+                                <span>Instagram</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section-5">
+                        <div class="help">
+                            <div class="heading">
+                                <span>Let Us Help You</span>
+                            </div>
+                            <div class="body">
+                                <span>Your Account</span>
+                                <span>Return Policy</span>
+                                <span>Help</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="copyright">
+                    <span>Copyrights - 2021 Masgarti Inc,.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var modal = document.getElementById("all-modal");
+        var btn = document.getElementById("all");
+        var span = document.getElementsByClassName("close")[0];
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        var header = document.getElementById("menu");
+        var btns = header.getElementsByClassName("menu-items");
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].addEventListener("click", function() {
+                var current = document.getElementsByClassName("active");
+                current[0].className = current[0].className.replace(" active", "");
+                this.className += " active";
+            });
+        }
+    </script>
+</body>
+</html>

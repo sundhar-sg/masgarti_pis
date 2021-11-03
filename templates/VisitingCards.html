@@ -1,0 +1,381 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masgarti INC,. - Visiting Cards</title>
+    <link rel="stylesheet" href="{% static 'Flyers.css' %}">
+    <link rel="stylesheet" href="{% static 'main_styles.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#btt-image").on('click', function(event) {
+                if (this.hash !== "") {
+                    event.preventDefault();
+                    var hash = this.hash;
+                    $('html, body').animate({
+                        scrollTop: $(hash).offset().top
+                    }, 800, function(){
+                        window.location.hash = hash;
+                    });
+                } 
+            });
+        });
+    </script>
+    <style>
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 2px transparent; 
+            border-radius: 4px;
+        }
+        
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background-color: lightgray;
+            border-radius: 6px;
+        }
+
+        .user-account {
+            position: relative;
+            display: flex;
+            justify-content: space-evenly;
+            cursor: pointer;
+            margin: 6px 0;
+        }
+
+        .account-menu {
+            visibility: hidden;
+            opacity: 0;
+            background-color: white;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            transform: translateY(-3em);
+            z-index: -1;
+            transition: all 0.3s ease 0s, visibility 0s linear 0.03s, z-index 0s linear 0.01s;
+        }
+
+        .user-account:focus .account-menu,
+        .user-account:focus-within .account-menu,
+        .user-account:hover .account-menu {
+            visibility: visible;
+            z-index: 1;
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0s, 0s, 0.3s;
+        }
+
+        .account-menu li {
+            width: 100%;
+        }
+
+        .account-menu li:hover {
+            background-color: #5C6BC0;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <section id="top-page" class="overflow-x-hidden bg-gray-200">
+        <section class="content-center w-screen h-full items-center ">
+            <section class="fixed z-30 w-screen bg-gradient-to-r from-indigo-500 via-indigo-600 to-indigo-800 container-lg h-14 lg:h-20 flex items-center justify-between p-5">
+                <div class="flex justify-evenly align-middle items-center">
+                    <a class="outline-none cursor-pointer" href="{% url 'homepage' %}"><img class="w-24 md:w-64 h-14 md:h-24" src="{% static 'images/Logos/Masgarti-logos_transparent.png' %}" /></a>
+                    <div class="font-sans items-center hidden lg:block md:ml-10 space-x-2 p-2">
+                        <a class="outline-none cursor-pointer" href="{% url 'clothing' %}"><span class="text-xl text-gray-200 hover: rounded-2xl hover: px-5 hover: py-1 hover:text-black hover:bg-white hover:border-black">Clothing</span></a>
+                        <a class="outline-none cursor-pointer" href="{% url 'electronics' %}"><span class="text-xl text-gray-200 hover: rounded-2xl hover: px-5 hover: py-1 hover:text-black hover:bg-white hover:border-black">Electronics</span></a>
+                        <a class="outline-none cursor-pointer" href="{% url 'business_promotions' %}"><span class="text-xl text-gray-200 hover: rounded-2xl hover: px-5 hover: py-1 hover:text-black hover:bg-white hover:border-black">Business Promotions</span></a>
+                    </div>
+                </div>
+                <div class="font-sans flex items-center cursor-pointer space-x-6">
+                    {% if request.session.username %}
+                        <ul class="user-account">
+                            <li><span class="text-xl text-white font-semibold">Welcome {{ request.session.username }}</span></li>
+                            <li>
+                                <img class="w-6 h-6 md:w-8 md:h-8 ml-1" src="{% static 'images/arrow_drop_down_white_48dp.svg' %}">
+                                <ul class="account-menu">
+                                    <li class="py-3"><a href="{% url 'user-details-view' %}?account_url={{ request.get_full_path }}">My Account</a></li>
+                                    <li class="py-3"><a href="#">My Orders</a></li>
+                                    <form action="" method="post">
+                                        <li class="py-3 cursor-pointer">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="redirect_url" value="{{ request.get_full_path }}" />
+                                            <input class="w-full h-full outline-none cursor-pointer bg-transparent" type="submit" name="signout" value="Sign Out" />
+                                        </li>
+                                    </form>
+                                </ul>
+                            </li>
+                        </ul>
+                        {% else %}
+                        <div class="flex items-center space-x-2 md:space-x-7 justify-evenly">
+                            <a class="cursor-pointer" href="{% url 'loginview' %}?next={{ request.get_full_path }}"><span class="text-sm md:text-xl text-gray-200 hover: rounded-2xl hover: px-5 hover: py-1 hover:text-black hover:bg-white hover:border-black">Login</span></a>
+                            <a class="cursor-pointer" href="{% url 'signupview' %}"><span class="text-sm md:text-xl text-gray-200 hover: rounded-2xl hover: px-5 hover: py-1 hover:text-black hover:bg-white hover:border-black">Sign Up</span></a>
+                        </div>
+                    {% endif %}
+                    <img class="bg-transparent h-8 w-8 md:h-12 md:w-12" src="{% static 'images/shopping_cart_white_48dp.svg' %}" />
+                </div>
+            </section>
+        </section>
+        <section class="w-screen h-full flex flex-col xl:flex-row justify-evenly">
+            <div class="flex flex-col mt-16 lg:mt-36 justify-start">
+                <span class="flex justify-start items-center ml-3 lg:ml-14">
+                    <a href="{% url 'homepage' %}" class="text-black text-xs md:text-lg lg:text-xl font-semibold outline-none hover:text-indigo-700">Home</a>
+                    <img class="w-8 h-4 lg:w-10 lg:h-6 -mb-1" src="{% static 'images/east_black_48dp.svg' %}" />
+                    <a href="{% url 'business_promotions' %}" class="text-black text-xs md:text-lg lg:text-xl font-semibold outline-none hover:text-indigo-700">Business Promotions</a>
+                    <img class="w-8 h-4 lg:w-10 lg:h-6 -mb-1" src="{% static 'images/east_black_48dp.svg' %}" />
+                    <span class="text-indigo-700 text-xs md:text-lg lg:text-xl font-semibold">Visiting Cards</span>
+                </span>
+                <div class="flex mt-6 mx-2 md:mt-10 justify-center items-center xl:justify-start">
+                    <div id="images-collection" class="flex flex-col">
+                        <button id="image_1" onclick="imageChanger(this.id)" class="rounded-2xl m-1 ring-2 ring-indigo-600">
+                            <img class="w-16 h-16 md:h-20 rounded-2xl p-1" src="{% static 'images/Images/Visiting_Cards.png' %}" />
+                        </button>
+                        <button id="image_2" onclick="imageChanger(this.id)" class="border border-transparent m-1 rounded-2xl focus:ring-2 focus:ring-indigo-600">
+                            <img class="w-16 h-16 md:h-20 rounded-2xl p-1" src="{% static 'images/Images/Visiting_Cards_1.jpg' %}" />
+                        </button>
+                        <button id="image_3" onclick="imageChanger(this.id)" class="border border-transparent m-1 rounded-2xl focus:ring-2 focus:ring-indigo-600">
+                            <img class="w-16 h-16 md:h-20 rounded-2xl p-1" src="{% static 'images/Images/Visiting_Cards_2.jpg' %}" />
+                        </button>
+                        <button id="image_4" onclick="imageChanger(this.id)" class="border border-transparent m-1 rounded-2xl focus:ring-2 focus:ring-indigo-600">
+                            <img class="w-16 h-16 md:h-20 rounded-2xl p-1" src="{% static 'images/Images/Visiting_Cards_3.jpg' %}" />
+                        </button>
+                        <button id="image_5" onclick="imageChanger(this.id)" class="border border-transparent m-1 rounded-2xl focus:ring-2 focus:ring-indigo-600">
+                            <img class="w-16 h-16 md:h-20 rounded-2xl p-1" src="{% static 'images/Images/Visiting_Cards_4.jpg' %}" />
+                        </button>
+                        <button id="image_6" onclick="imageChanger(this.id)" class="border border-transparent m-1 rounded-2xl focus:ring-2 focus:ring-indigo-600">
+                            <img class="w-16 h-16 md:h-20 rounded-2xl p-1" src="{% static 'images/Images/Visiting_Cards_5.jpg' %}" />
+                        </button>
+                    </div>
+                    <div class="ml-2 xl:ml-10 w-80 md:w-7/12 lg:w-6/12 xl:w-96 h-auto shadow-2xl bg-white rounded-2xl">
+                        <img id="img-full" class="w-full h-full rounded-2xl" src="{% static 'images/Images/Visiting_Cards.png' %}" />
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col justify-start bg-white mx-3 md:mx-20 lg:mx-36 xl:mx-0 mx-0 pb-16 shadow-2xl mt-6 xl:mt-52 overflow-y-auto py-3 px-3 md:px-6 xl:-ml-12 rounded-2xl">
+                <span class="text-xl md:text-3xl text-center font-semibold text-black">Standard Customizable Visiting Cards</span>
+                <div class="flex flex-col justify-evenly">
+                    <span class="text-lg md:text-xl text-center mt-5 font-semibold text-wrap text-black">Professional Visiting Cards with a professional look</span>
+                    <div class="flex flex-col mx-5 mt-2">
+                        <span class="text-md md:text-lg"> - 6 Available Sizes for Visiting Cards Printing</span>
+                        <span class="text-md md:text-lg"> - Full Coloured Designing for the Visiting Cards</span>
+                        <span class="text-md md:text-lg"> - Standard (or) Premium Glossy / Matte Paper printing are available</span>
+                        <span class="text-md md:text-lg"> - Professional Visiting Cards with a professional look</span>
+                    </div>
+                </div>
+                <form action="#" method="POST"> 
+                    <div class="ring-1 mt-10 ring-black rounded-2xl pt-4">
+                        <div id="shape-type-div">
+                            <fieldset id="shape-type" class="flex flex-col">
+                                <legend class="text-lg md:text-2xl mx-5 my-5 font-semibold">Shape Type</legend>
+                                <div class="flex flex-col md:flex-row mb-10 items-center justify-center md:items-start md:justify-evenly" >
+                                    <div class="vertical" id="shape-type">
+                                        <input name="shape-type" type="radio" id="standard" aria-labelledby="standard-label" value="Standard" required>
+                                        <label for="standard" id="standard-label">
+                                            Standard (89 x 51 mm)
+                                        </label>
+                                    </div>
+                                    <div class="vertical mt-10 md:mt-0" id="shape-type">
+                                        <input name="shape-type" type="radio" id="classic" aria-labelledby="classic-label" value="Classic">
+                                        <label for="classic" id="classic-label">
+                                            Classic (91 x 55 mm)
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col md:flex-row mb-10 items-center justify-center md:items-start md:justify-evenly">
+                                    <div class="vertical" id="shape-type">
+                                        <input name="shape-type" type="radio" id="rounded" aria-labelledby="rounded-label" value="Rounded">
+                                        <label class="flex flex-col" for="rounded" id="rounded-label">
+                                            Rounded (89 x 51 mm)
+                                            <span class="text-lg">(8mm rounded)</span>
+                                        </label>
+                                    </div>
+                                    <div class="vertical mt-10 md:mt-6" id="shape-type">
+                                        <input name="shape-type" type="radio" id="square" aria-labelledby="square-label" value="Square">
+                                        <label for="square" id="square-label">
+                                            Square (65 x 65 mm)
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col md:flex-row mb-10 items-center justify-center md:items-start md:justify-evenly">
+                                    <div class="vertical" id="shape-type">
+                                        <input name="shape-type" type="radio" id="premium" aria-labelledby="premium-label" value="Premium">
+                                        <label for="premium" id="premium-label">
+                                            Premium (89 x 51 mm)
+                                        </label>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div id="orientation-type-div">
+                            <fieldset id="orientation-type" class="flex flex-col">
+                                <legend class="text-lg md:text-2xl mx-5 my-5 font-semibold">Orientation</legend>
+                                <div class="flex mt-5 mb-10 items-start justify-evenly">
+                                    <div class="vertical" id="orientation-type">
+                                        <input name="orientation-type" type="radio" id="vertical-orientation" aria-labelledby="vertical-orientation-label" value="Vertical" required>
+                                        <label for="vertical-orientation" id="vertical-orientation-label">
+                                            Vertical
+                                        </label>
+                                    </div>
+                                    <div class="vertical" id="orientation-type">
+                                        <input name="orientation-type" type="radio" id="horizontal-orientation" aria-labelledby="horizontal-orientation-label" value="Horizontal">
+                                        <label for="horizontal-orientation" id="horizontal-orientation-label">
+                                            Horizontal
+                                        </label>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div id="corner-type-div">
+                            <fieldset id="corner-type" class="flex flex-col">
+                                <legend class="text-lg md:text-2xl mx-5 my-5 font-semibold">Corners</legend>
+                                <div class="flex mt-5 mb-10 items-start justify-evenly">
+                                    <div class="vertical" id="corner-type">
+                                        <input name="corner-type" type="radio" id="standard-corner" aria-labelledby="standard-corner-label" value="Standard" required>
+                                        <label for="standard-corner" id="standard-corner-label">
+                                            Standard
+                                        </label>
+                                    </div>
+                                    <div class="vertical" id="corner-type">
+                                        <input name="corner-type" type="radio" id="rounded-corner" aria-labelledby="rounded-corner-label" value="Rounded">
+                                        <label for="rounded-corner" id="rounded-corner-label">
+                                            Rounded
+                                        </label>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div id="paper-type-div">
+                            <fieldset id="paper-type" class="flex flex-col">
+                                <legend class="text-lg md:text-2xl mx-5 my-5 font-semibold">Paper Type</legend>
+                                <div class="flex mt-5 mb-10 items-start justify-evenly">
+                                    <div class="vertical" id="paper-type">
+                                        <input name="paper-type" type="radio" id="standard-paper" aria-labelledby="standard-paper-label" value="Standard" required>
+                                        <label for="standard-paper" id="standard-paper-label">
+                                            Standard
+                                        </label>
+                                    </div>
+                                    <div class="vertical" id="paper-type">
+                                        <input name="paper-type" type="radio" id="premium-paper" aria-labelledby="premium-paper-label" value="Rounded">
+                                        <label for="premium-paper" id="premium-paper-label">
+                                            Premium
+                                        </label>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div id="finish-type-div">
+                            <fieldset id="finish-type" class="flex flex-col">
+                                <legend class="text-lg md:text-2xl mx-5 my-5 font-semibold">Visiting Cards Finish Type</legend>
+                                <div class="flex mt-5 mb-10 items-start justify-evenly">
+                                    <div class="vertical" id="finish-type">
+                                        <input name="finish-type" type="radio" id="matte-finish" aria-labelledby="matte-finish-label" value="Matte" required>
+                                        <label for="matte-finish" id="matte-finish-label">
+                                            Matte
+                                        </label>
+                                    </div>
+                                    <div class="vertical" id="finish-type">
+                                        <input name="finish-type" type="radio" id="glossy-finish" aria-labelledby="glossy-finish-label" value="Rounded">
+                                        <label for="glossy-finish" id="glossy-finish-label">
+                                            Glossy
+                                        </label>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="my-5 md:ml-32 lg:ml-48 xl:ml-0">
+                        <label for="quantity" class="text-2xl font-semibold">Quantity</label>
+                        <select required class="bg-transparent ml-5 ring-2 ring-black text-xl rounded-sm pr-5" name="quantity" id="quantity">
+                            <option value="">Select a Quantity</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="150">150</option>
+                            <option value="200">200</option>
+                            <option value="300">300</option>
+                            <option value="500">500</option>
+                        </select>
+                    </div>
+                    <div class="xl:mx-36 justify-center items-center">
+                        <button type="submit" class="w-72 ml-4 md:ml-32 lg:ml-48 xl:ml-12 h-16 text-2xl rounded-md text-white bg-indigo-400 hover:bg-indigo-600">Start Designing >></button>
+                    </div> 
+                </form>
+            </div>
+        </section>
+        <section class="container-lg flex flex-col z-20 h-full place-items-end">
+            <div class=" h-15 flex content-end items-end">
+                <span id="back-to-top" class="hidden font-semibold text-lg mb-3 mr-4">Back to Top</span>
+                <a id="btt-image" href="#top-page"><img class="border border-solid border-black rounded-full cursor-pointer w-8 h-8 lg:w-14 lg:h-14 mt-8 mr-4 lg:mt-12 lg:mr-16" src="{% static 'images/arrow_upward_black_48dp.svg' %}" /></a>
+            </div>
+            <section class="bg-gradient-to-r from-indigo-500 via-indigo-600 to-indigo-800 w-screen flex flex-col h-full mt-10">
+                <div class="flex flex-col md:flex-row justify-evenly items-start my-6 mx-2 lg:my-12 xl:mx-24">
+                    <div class="flex flex-col">
+                        <span class="font-semibold text-white text-xl lg:text-2xl mb-2 lg:mb-4">Shop By Departments</span>
+                        <a class="mt-2" href="{% url 'clothing' %}"><span class="font-medium text-gray-200 text-lg lg:text-xl pl-4 lg:pl-8 cursor-pointer">Clothing</span></a>
+                        <a class="mt-2" href="{% url 'electronics' %}"><span class="font-medium text-gray-200 text-lg lg:text-xl pl-4 lg:pl-8 mt-2 cursor-pointer">Electronics</span></a>
+                        <a class="mt-2" href="{% url 'business_promotions' %}"><span class="font-medium text-gray-200 text-lg lg:text-xl pl-4 lg:pl-8 mt-2 cursor-pointer">Business Promotions</span></a>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-semibold text-white text-xl lg:text-2xl mb-2 lg:mb-4">Customer Zone</span>
+                        <span class="font-medium text-gray-200 text-lg lg:text-xl pl-4 lg:pl-8 mt-2 cursor-pointer">Your Accont</span>
+                        <span class="font-medium text-gray-200 text-lg lg:text-xl pl-4 lg:pl-8 mt-2 cursor-pointer">Delivery Charges</span>
+                        <span class="font-medium text-gray-200 text-lg lg:text-xl pl-4 lg:pl-8 mt-2 cursor-pointer">Refunds & Replacements</span>
+                        <span class="font-medium text-gray-200 text-lg lg:text-xl pl-4 lg:pl-8 mt-2 cursor-pointer">Order Tracking</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-semibold text-white text-xl lg:text-2xl mb-2">Connect With Us</span>
+                        <div class="flex">
+                            <img class="pl-8" src="{% static 'images/icons8-facebook-circled.svg' %}" />
+                            <img class="pl-8" src="{% static 'images/icons8-instagram-logo.svg' %}" />
+                            <img class="pl-8" src="{% static 'images/icons8-twitter.svg' %}" />
+                        </div>
+                        <span class="font-semibold text-white text-xl lg:text-2xl mt-8 mb-2">Download Our App</span>
+                        <div class="flex flex-col lg:flex-row">
+                            <div class="h-30 w-48 ml-5">
+                                <img class="rounded-xl" src="{% static 'images/google-play-badge.png' %}" />
+                            </div>
+                            <div class="h-30 w-48 mt-5 lg:mt-0 ml-5">
+                                <img class="rounded-xl" src="{% static 'images/App_Store_Badge.jpg' %}" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center mb-5 justify-center">
+                    <img class="h-5 w-5 lg:h-7 lg:w-7 mr-2" src="{% static 'images/copyright_white_48dp.svg' %}" />
+                    <span class="text-md lg:text-lg font-semibold text-white">All Rights Reserved - Masgarti INC,.</span>
+                </div>
+            </section>
+        </section>
+    </section>
+    <script>
+        const btt = document.getElementById("back-to-top");
+        const btt_image = document.getElementById("btt-image");
+        btt_image.addEventListener('mouseover', function() {
+            btt.classList.remove('hidden');
+        })
+        btt_image.addEventListener('mouseout', function() {
+            btt.classList.add('hidden');
+        })
+
+        function imageChanger(clickedID) {
+            let child = document.getElementById(clickedID).childNodes;
+            let image_url = child[1].src;
+            let image_url_split = image_url.split("/");
+            let base_url = "{% static 'images/Images/' %}";
+            document.getElementById('img-full').src = ("%s",base_url.concat(image_url_split[image_url_split.length - 1]));
+            console.log(document.getElementById('image_1').classList);
+            if(clickedID != 'image_1') {
+                document.getElementById('image_1').classList.remove('ring-2' ,'ring-indigo-600');
+                document.getElementById('image_1').classList.add('focus:ring-2' ,'focus:ring-indigo-600');
+            }
+        }
+    </script>
+</body>
+</html>
