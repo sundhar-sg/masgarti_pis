@@ -1,1 +1,3 @@
-web: gunicorm Masgarti_INC.wsgi --log-file -
+web: gunicorn Masgarti_INC.wsgi:application --log-file - --log-level debug
+python manage.py collectstatic --noinput
+manage.py migrate
